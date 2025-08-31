@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment 2: Reading Reflection - EMS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f8f5f0 0%, #e8eaf1 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding-top: 20px;
+        }
+        .container {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem;
+            gap: 1.5rem;
+            flex: 1;
+        }
+        /* Left Navigation Column */
+        .left-column {
+            width: 250px;
+            padding: 1rem;
+            background: #00205B;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            color: white;
+            position: sticky;
+            top: 1rem;
+            height: fit-content;
+        }
+        .nav-title {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #FF8200;
+        }
+        .nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .nav-button {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            text-align: left;
+            width: 100%;
+        }
+        .nav-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .nav-button.active {
+            background: #FF8200;
+            color: white;
+            font-weight: bold;
+        }
+        /* Button Container for perfect alignment */
+        .button-container {
+            position: fixed;
+            top: 20px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 1000;
+            pointer-events: none;
+        }
+        .button-container > * {
+            pointer-events: auto;
+        }
+        /* Session Button - Fixed at Left */
+        .session-btn {
+            padding: 12px 24px;
+            border: none;
+            outline: none;
+            color: #FFF;
+            cursor: pointer;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            background: #FF8200;
+            display: inline-block;
+            box-shadow: 0 0 15px rgba(255, 130, 0, 0.6);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1001;
+        }
+        .session-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(255, 130, 0, 0.8);
+            background: #e67300;
+        }
+        .-btn:active {
+            color: #000;
+            font-weight: bold;
+            transform: translateY(0);
+        }
+        /* Enhanced Glowing Home Button - Fixed at Right */
+        .home-btn {
+            padding: 12px 24px;
+            border: none;
+            outline: none;
+            color: #FFF;
+            cursor: pointer;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            background: transparent;
+            display: inline-block;
+            box-shadow: 0 0 15px rgba(255, 130, 0, 0.6);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1001;
+        }
+        .home-btn::after {
+            content: "";
+            z-index: -1;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #00205B;
+            left: 0;
+            top: 0;
+            border-radius: 10px;
+        }
+        .home-btn::before {
+            content: "";
+            background: linear-gradient(
+                45deg,
+                #FF0000, #FF7300, #FFFB00, #48FF00,
+                #00FFD5, #002BFF, #FF00C8, #FF0000
+            );
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            background-size: 600%;
+            z-index: -2;
+            width: calc(100% + 4px);
+            height: calc(100% + 4px);
+            filter: blur(8px);
+            animation: glowing 20s linear infinite;
+            transition: opacity 0.3s ease-in-out;
+            border-radius: 10px;
+            opacity: 0;
+        }
+        @keyframes glowing {
+            0% { background-position: 0 0; }
+            50% { background-position: 400% 0; }
+            100% { background-position: 0 0; }
+        }
+        .home-btn:hover::before {
+            opacity: 1;
+        }
+        .home-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(255, 130, 0, 0.8);
+        }
+        .home-btn:active {
+            color: #000;
+            font-weight: bold;
+            transform: translateY(0);
+        }
+
+        /* Main Content Area */
+        .main-content {
+            flex: 1;
+            background: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 2rem;
+            flex: 1;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .card {
+            background: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1.5rem;
+            border: 1px solid #e5e7eb;
+        }
+        .card-header {
+            padding: 1.5rem 1.5rem 0;
+        }
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #00205B;
+            margin-bottom: 0.5rem;
+        }
+        .card-description {
+            color: #6b7280;
+            margin-bottom: 1rem;
+        }
+        .card-content {
+            padding: 1.5rem;
+        }
+        .grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+        .grid-cols-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        .space-y-6 > * + * {
+            margin-top: 1.5rem;
+        }
+        .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+        .space-y-3 > * + * {
+            margin-top: 0.75rem;
+        }
+        .text-lg {
+            font-size: 1.125rem;
+        }
+        .font-semibold {
+            font-weight: 600;
+        }
+        .font-medium {
+            font-weight: 500;
+        }
+        .text-gray-800 {
+            color: #1f2937;
+        }
+        .text-gray-600 {
+            color: 4b5563;
+        }
+        .text-blue-700 {
+            color: #00205B;
+        }
+        .bg-blue-50 {
+            background-color: #e6eff9;
+        }
+        .bg-gray-50 {
+            background-color: #f9fafb;
+        }
+        .bg-amber-50 {
+            background-color: #fffbeb;
+        }
+        .bg-green-50 {
+            background-color: #f0fdf4;
+        }
+        .p-4 {
+            padding: 1rem;
+        }
+        .rounded-lg {
+            border-radius: 0.5rem;
+        }
+        .topic-badge {
+            display: inline-block;
+            background: #f3f4f6;
+            color: #374151;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            margin: 0.25rem;
+            border: 1px solid #d1d5db;
+        }
+        .question-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .question-title {
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+            color: #1f2937;
+        }
+        .textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            font-family: inherit;
+            resize: vertical;
+        }
+        .textarea:focus {
+            outline: none;
+            border-color: #00205B;
+            box-shadow: 0 0 0 3px rgba(0, 32, 91, 0.1);
+        }
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .button-primary {
+            background: #00205B;
+            color: white;
+        }
+        .button-primary:hover {
+            background: #001235;
+        }
+        .button-outline {
+            background: white;
+            color: #374151;
+            border: 1px solid #d1d5db;
+        }
+        .button-outline:hover {
+            background: #f9fafb;
+        }
+        .navigation-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        .blockquote {
+            border-left: 4px solid #00205B;
+            padding-left: 1rem;
+            font-style: italic;
+            color: #4b5563;
+            margin: 1rem 0;
+        }
+        .article-link-box {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .article-link-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #00205B;
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 0.375rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+        .article-link-button:hover {
+            background: #001235;
+        }
+        .outcomes-list li {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 0.5rem;
+            background: #f8f9fa;
+            border-left: 4px solid #00205B;
+        }
+        .outcomes-list li:nth-child(2) {
+            border-left-color: #FF8200;
+        }
+        .outcomes-list li:nth-child(3) {
+            border-left-color: #10b981;
+        }
+        .outcomes-list li:nth-child(4) {
+            border-left-color: #8b5cf6;
+        }
+        /* GenAI Image Styles */
+        .genai-image {
+            max-width: 35%;
+            height: auto;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 1rem 0;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .image-caption {
+            text-align: center;
+            font-style: italic;
+            color: #6b7280;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+        .language-section {
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+            border-left: 4px solid #FF8200;
+        }
+        .language-section h4 {
+            color: #00205B;
+            margin-bottom: 0.5rem;
+        }
+        .citation-box {
+            background-color: #f0f4f8;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            border-left: 4px solid #00205B;
+            margin-top: 1.5rem;
+        }
+        .citation-box h4 {
+            color: #00205B;
+            margin-bottom: 0.75rem;
+        }
+        .citation-example {
+            font-family: monospace;
+            background-color: white;
+            padding: 1rem;
+            border-radius: 0.25rem;
+            border: 1px solid #d1d5db;
+            overflow-x: auto;
+        }
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background: #00205B;
+            color: white;
+            margin-top: auto;
+            width: 100%;
+        }
+        .counter-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem 0;
+            font-size: 0.9rem;
+        }
+        .counter-container p {
+            margin: 0.25rem 0;
+            color: #FF8200;
+        }
+        /* ENLARGED COUNTER */
+        .counter-wrapper {
+            font-size: 3.5rem !important;
+            font-weight: bold;
+            color: #FF8200 !important;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+            margin: 0.5rem 0;
+            padding: 0.5rem 1.5rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            min-width: 300px;
+            letter-spacing: 1px;
+        }
+        .counter-label {
+            font-size: 1.2rem;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Page Title Styling */
+        .page-title {
+            text-align: center;
+            margin: 70px 0 2rem 0;
+            color: #00205B;
+            font-size: 2rem;
+            font-weight: bold;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Theme Selection Styles */
+        .theme-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .theme-card {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .theme-card:hover {
+            background: #e9ecef;
+            transform: translateY(-2px);
+        }
+        .theme-card.selected {
+            background: #00205B;
+            color: white;
+            border-color: #FF8200;
+        }
+        .theme-card h4 {
+            margin-bottom: 0.5rem;
+            color: inherit;
+        }
+        .theme-card ul {
+            padding-left: 1.5rem;
+            font-size: 0.9rem;
+        }
+        .theme-card li {
+            margin-bottom: 0.25rem;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 1024px) {
+            .container {
+                flex-direction: column;
+            }
+            .left-column {
+                width: 100%;
+                margin-bottom: 1rem;
+                position: static;
+            }
+            .button-container {
+                padding: 0 10px;
+                top: 10px;
+            }
+            .home-btn, .-btn {
+                padding: 10px 16px;
+                font-size: 0.9rem;
+            }
+            .nav-links {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .nav-button {
+                width: auto;
+                flex: 1;
+                min-width: 120px;
+                justify-content: center;
+                font-size: 0.85rem;
+            }
+            .page-title {
+                margin-top: 60px;
+                font-size: 1.5rem;
+            }
+        }
+        @media (max-width: 768px) {
+            .grid-cols-2 {
+                grid-template-columns: 1fr;
+            }
+            .genai-image {
+                max-width: 65%;
+            }
+            .tab-content {
+                padding: 1rem;
+            }
+            .theme-grid {
+                grid-template-columns: 1fr;
+            }
+            .counter-wrapper {
+                font-size: 2.5rem !important;
+                min-width: 250px;
+                padding: 0.4rem 1rem;
+            }
+            .page-title {
+                font-size: 1.3rem;
+                margin-top: 50px;
+            }
+            .home-btn, .-btn {
+                font-size: 0.8rem;
+                padding: 8px 12px;
+            }
+        }
+        @media (max-width: 480px) {
+            .nav-button {
+                min-width: 100px;
+                font-size: 0.8rem;
+                padding: 0.6rem 0.5rem;
+            }
+            .genai-image {
+                max-width: 85%;
+            }
+            .counter-wrapper {
+                font-size: 2rem !important;
+                min-width: 200px;
+                padding: 0.3rem 0.8rem;
+            }
+            .counter-label {
+                font-size: 1rem;
+            }
+            .home-btn, .-btn {
+                padding: 6px 10px;
+                font-size: 0.7rem;
+            }
+            .button-container {
+                padding: 0 5px;
+            }
+            .page-title {
+                font-size: 1.1rem;
+                margin-top: 45px;
+                padding: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Button Container for perfect alignment -->
+    <div class="button-container">
+        <!-- Session Button (Fixed at Left) -->
+        <div class="session-btn">ALL 124_Session 1_Week 6</div>
+
+        <!-- Enhanced Glowing Home Button (Fixed at Right) -->
+        <a href="https://oeybers-cpu.github.io/a_lit_models/" class="home-btn">Academic Literacy Home</a>
+    </div>
+
+    <!-- Page Title to replace the removed header -->
+    <h1 class="page-title">Assignment 2: Reading Reflection - EMS</h1>
+
+    <div class="container">
+        <!-- Left Navigation Column -->
+        <div class="left-column">
+            <h2 class="nav-title">Assignment 2 Navigation</h2>
+            <div class="nav-links">
+                <button class="nav-button active" onclick="showTab('session-outcomes')">
+                    <span>📌</span>
+                    <span>Session Outcomes</span>
+                </button>
+                <button class="nav-button" onclick="showTab('instructions')">
+                    <span>📖</span>
+                    <span>Instructions</span>
+                </button>
+                <button class="nav-button" onclick="showTab('theme-selection')">
+                    <span>🎯</span>
+                    <span>Theme Selection</span>
+                </button>
+                <button class="nav-button" onclick="showTab('article-analysis')">
+                    <span>🔍</span>
+                    <span>Article Analysis</span>
+                </button>
+                <button class="nav-button" onclick="showTab('critical-reading')">
+                    <span>🧠</span>
+                    <span>Critical Reading</span>
+                </button>
+                <button class="nav-button" onclick="showTab('session-reflection')">
+                    <span>📝</span>
+                    <span>Session Reflection</span>
+                </button>
+                <button class="nav-button" onclick="showTab('genai-integration')">
+                    <span>🤖</span>
+                    <span>GenAI Integration</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <!-- Session Outcomes Tab -->
+            <div id="session-outcomes" class="tab-content active">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Session Outcomes</h2>
+                        <p class="card-description">Key learning goals for engaging with the articles and reflection tasks</p>
+                    </div>
+                    <div class="card-content space-y-6">
+                        <ul class="space-y-2 text-gray-800 text-lg">
+                            <li>1️⃣ Identify and analyse the authors' argumentative strategies in your selected articles</li>
+                            <li>2️⃣ Compare and contrast how different authors approach your chosen theme</li>
+                            <li>3️⃣ Synthesize arguments from multiple sources to form a coherent critical response</li>
+                            <li>4️⃣ Connect academic arguments to real-world economic and management issues in South Africa</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Instructions Tab -->
+            <div id="instructions" class="tab-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Assignment Instructions</h2>
+                        <p class="card-description">Complete overview of Assignment 2: Reading Reflection requirements</p>
+                    </div>
+                    <div class="card-content space-y-6">
+                        <div class="grid grid-cols-2">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800" style="margin-bottom: 0.75rem;">Assignment Overview</h3>
+                                <ul class="space-y-2">
+                                    <li style="display: flex; align-items: flex-start; gap: 0.5rem;">
+                                        <span class="checkmark">✓</span>
+                                        <span>850-1000 word critical reflection essay</span>
+                                    </li>
+                                    <li style="display: flex; align-items: flex-start; gap: 0.5rem;">
+                                        <span class="checkmark">✓</span>
+                                        <span>Based on two academic articles from your chosen theme</span>
+                                    </li>
+                                    <li style="display: flex; align-items: flex-start; gap: 0.5rem;">
+                                        <span class="checkmark">✓</span>
+                                        <span>Due: 8-15 September 2025</span>
+                                    </li>
+                                    <li style="display: flex; align-items: flex-start; gap: 0.5rem;">
+                                        <span class="checkmark">✓</span>
+                                        <span>Weight: 30 marks</span>
+                                    </li>
+                                    <li style="display: flex; align-items: flex-start; gap: 0.5rem;">
+                                        <span class="checkmark">✓</span>
+                                        <span>Submission via clickUP (Turnitin-enabled)</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800" style="margin-bottom: 0.75rem;">Key Requirements</h3>
+                                <div class="space-y-2">
+                                    <div class="bg-blue-50 p-3 rounded-lg">
+                                        <h4 class="font-medium text-blue-700">Harvard Referencing</h4>
+                                        <p style="font-size: 0.875rem; color: #00205B;">Each article must be cited at least twice. All data/statistics must be cited.</p>
+                                    </div>
+                                    <div class="bg-amber-50 p-3 rounded-lg">
+                                        <h4 class="font-medium text-blue-700">Critical Engagement</h4>
+                                        <p style="font-size: 0.875rem; color: #00205B;">Not just summary - analyze and evaluate arguments</p>
+                                    </div>
+                                    <div class="bg-green-50 p-3 rounded-lg">
+                                        <h4 class="font-medium text-blue-700">South African Context</h4>
+                                        <p style="font-size: 0.875rem; color: #00205B;">Connect arguments to local economic and management issues</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-700" style="margin-bottom: 0.5rem;">Assignment Structure</h4>
+                            <div class="grid grid-cols-2">
+                                <div>
+                                    <h5 class="font-medium text-blue-700">Introduction</h5>
+                                    <p style="font-size: 0.875rem; color: #00205B;">Introduce theme, selected articles, and thesis statement</p>
+                                </div>
+                                <div>
+                                    <h5 class="font-medium text-blue-700">Summary & Analysis</h5>
+                                    <p style="font-size: 0.875rem; color: #00205B;">Summarize core arguments of each article with critical analysis</p>
+                                </div>
+                                <div>
+                                    <h5 class="font-medium text-blue-700">Synthesis</h5>
+                                    <p style="font-size: 0.875rem; color: #00205B;">Compare, contrast, and evaluate the articles' arguments</p>
+                                </div>
+                                <div>
+                                    <h5 class="font-medium text-blue-700">Conclusion</h5>
+                                    <p style="font-size: 0.875rem; color: #00205B;">Summarize analysis and provide concluding thoughts</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Theme Selection Tab -->
+            <div id="theme-selection" class="tab-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Theme Selection</h2>
+                        <p class="card-description">Choose ONE theme for your reading reflection assignment</p>
+                    </div>
+                    <div class="card-content space-y-6">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h3 class="font-semibold text-gray-800" style="margin-bottom: 0.5rem;">Important Note</h3>
+                            <p class="text-gray-600">
+                                You must select ONE theme from the options below. Each theme folder on clickUP contains several articles. 
+                                You will need to choose TWO articles from your selected theme's folder to use for your assignment.
+                            </p>
+                        </div>
+                        
+                        <h3 class="text-lg font-semibold text-gray-800">Available Themes</h3>
+                        <p>Click on a theme to select it for your assignment:</p>
+                        
+                        <div class="theme-grid">
+                            <div class="theme-card" onclick="selectTheme(this, 1)">
+                                <h4>Theme 1: Unemployment</h4>
+                                <ul>
+                                    <li>Youth unemployment</li>
+                                    <li>Labour-market scarring</li>
+                                    <li>Skills mismatch</li>
+                                    <li>Economic policies affecting job creation</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="theme-card" onclick="selectTheme(this, 2)">
+                                <h4>Theme 2: Corruption</h4>
+                                <ul>
+                                    <li>Systemic corruption</li>
+                                    <li>Impact on economic development</li>
+                                    <li>Ethics in leadership and reporting</li>
+                                    <li>Case studies (e.g., state capture)</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="theme-card" onclick="selectTheme(this, 3)">
+                                <h4>Theme 3: Entrepreneurship</h4>
+                                <ul>
+                                    <li>Entrepreneurship as solution to unemployment</li>
+                                    <li>Barriers to entry</li>
+                                    <li>Access to capital</li>
+                                    <li>Financial literacy</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="theme-card" onclick="selectTheme(this, 4)">
+                                <h4>Theme 4: National Dialogue & Governance</h4>
+                                <ul>
+                                    <li>Service delivery</li>
+                                    <li>Public policy effectiveness</li>
+                                    <li>Constitutionalism</li>
+                                    <li>Governance and accountability</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="theme-card" onclick="selectTheme(this, 5)">
+                                <h4>Theme 5: Education and Skills Mismatch</h4>
+                                <ul>
+                                    <li>Alignment between education and labour market</li>
+                                    <li>Financial literacy</li>
+                                    <li>Failures of the education system</li>
+                                    <li>Solutions for skills development</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="theme-card" onclick="selectTheme(this, 6)">
+                                <h4>Theme 6: Economic Policies & Issues</h4>
+                                <ul>
+                                    <li>B-BBEE</li>
+                                    <li>National Health Insurance (NHI)</li>
+                                    <li>Inflation and repo rates</li>
+                                    <li>Trade tariffs and wealth inequality</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="theme-card" onclick="selectTheme(this, 7)">
+                                <h4>Theme 7: Social Justice & Inequality</h4>
+                                <ul>
+                                    <li>Crime and poverty</li>
+                                    <li>Access to opportunities</li>
+                                    <li>Human rights</li>
+                                    <li>Social cohesion</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div id="selected-theme-display" class="bg-blue-50 p-4 rounded-lg" style="display: none;">
+                            <h4 class="font-semibold text-blue-700">Your Selected Theme</h4>
+                            <p id="selected-theme-text">You haven't selected a theme yet.</p>
+                            <div class="article-link-box">
+                                <p>Once you've selected your theme, access the articles in the "Reading Reflection Articles" folder on clickUP.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Article Analysis Tab -->
+            <div id="article-analysis" class="tab-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Article Analysis</h2>
+                        <p class="card-description">Analyze the argumentation strategies in your two selected articles</p>
+                    </div>
+                    <div class="card-content space-y-6">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h3 class="font-semibold text-gray-800" style="margin-bottom: 0.5rem;">Analysis Guidance</h3>
+                            <p class="text-gray-600">
+                                Use these questions to analyze the argumentation strategies in your two selected articles. 
+                                Consider how each author constructs their argument, what evidence they use, and how they attempt to persuade their audience.
+                            </p>
+                        </div>
+                        
+                        <div id="aa-questions">
+                            <h3 class="text-lg font-semibold text-gray-800">Analytical Questions</h3>
+                            <div class="question-card">
+                                <h4 class="question-title">1. What is the main argument or thesis of each article? How clearly is it stated, and where in the article does it appear?</h4>
+                                <textarea class="textarea" placeholder="Write your analysis here..."></textarea>
+                            </div>
+                            <div class="question-card">
+                                <h4 class="question-title">2. What types of evidence does each author use to support their claims? (e.g., statistical data, case studies, theoretical frameworks, historical examples)</h4>
+                                <textarea class="textarea" placeholder="Write your analysis here..."></textarea>
+                            </div>
+                            <div class="question-card">
+                                <h4 class="question-title">3. How do the authors establish their credibility or authority on the subject? Consider their use of specialized terminology, references to other research, or professional background.</h4>
+                                <textarea class="textarea" placeholder="Write your analysis here..."></textarea>
+                            </div>
+                            <div class="question-card">
+                                <h4 class="question-title">4. What underlying assumptions or values shape each author's argument? Are these assumptions explicitly stated or implied?</h4>
+                                <textarea class="textarea" placeholder="Write your analysis here..."></textarea>
+                            </div>
+                            <div class="question-card">
+                                <h4 class="question-title">5. How do the authors address counterarguments or alternative perspectives? Do they acknowledge and refute opposing views, or ignore them?</h4>
+                                <textarea class="textarea" placeholder="Write your analysis here..."></textarea>
+                            </div>
+                            <div class="question-card">
+                                <h4 class="question-title">6. What persuasive techniques or rhetorical strategies does each author employ? (e.g., emotional appeals, logical reasoning, ethical arguments)</h4>
+                                <textarea class="textarea" placeholder="Write your analysis here..."></textarea>
+                            </div>
+                            <div class="question-card">
+                                <h4 class="question-title">7. How is each article structured to maximize persuasiveness? Consider the organization of ideas, use of headings, and placement of key arguments.</h4>
+                                <textarea class="textarea" placeholder="Write your analysis here..."></textarea>
+                            </div>
+                        </div>
+                        <button class="button button-primary copy-button" onclick="copyAllResponses('article-analysis')">
+                            <span>📋</span>
+                            <span>Copy All Responses</span>
+                        </button>
+                        <div class="tips-container">
+                            <h3>Key Tips for Comparing Articles</h3>
+                            <ul class="tips-list">
+                                <li>Look for both similarities and differences in how the authors approach the same theme</li>
+                                <li>Consider how the disciplinary background of each author might influence their approach</li>
+                                <li>Evaluate which argument you find more persuasive and why</li>
+                                <li>Note how each article contributes to a broader understanding of the theme</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Critical Reading Tab -->
+            <div id="critical-reading" class="tab-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Critical Reading Reflection</h2>
+                        <p class="card-description">Reflect on the articles in relation to your academic discipline and the South African context</p>
+                    </div>
+                    <div class="card-content space-y-6">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h3 class="font-semibold text-gray-800" style="margin-bottom: 0.5rem;">Context</h3>
+                            <p class="text-gray-600">
+                                This section invites you to reflect on how the arguments in your selected articles connect to your academic discipline, 
+                                your perspective as a student of Economics and Management Sciences, and the broader South African context.
+                            </p>
+                        </div>
+                        
+                        <div id="cr-questions">
+                            <h3 class="text-lg font-semibold text-gray-800">Reflection Questions</h3>
+                            <div class="question-card">
+                                <h4 class="question-title">1. How do the arguments in these articles connect to or challenge what you've learned in your EMS courses? What new perspectives do they offer?</h4>
+                                <textarea class="textarea" placeholder="Write your reflection here..."></textarea>
+                            </div>
+                            <div class="question-card">
+                                <h4 class="question-title">2. How might the arguments in these articles inform potential solutions to economic or management challenges in South Africa? What practical applications can you identify?</h4>
+                                <textarea class="textarea" placeholder="Write your reflection here..."></textarea>
+                            </div>
+                            <div class="question-card">
+                                <h4 class="question-title">3. Reflect on your position as a student of Economics and Management Sciences. How does your academic background shape how you interpret these articles?</h4>
+                                <textarea class="textarea" placeholder="Write your reflection here..."></textarea>
+                            </div>
+                            <div class="question-card">
+                                <h4 class="question-title">4. Which of the two articles did you find more persuasive, and why? Consider the strength of evidence, clarity of argument, and relevance to the South African context.</h4>
+                                <textarea class="textarea" placeholder="Write your reflection here..."></textarea>
+                            </div>
+                            <div class="question-card">
+                                <h4 class="question-title">5. What questions or areas for further investigation did these articles raise for you? How might you explore these questions in your future studies?</h4>
+                                <textarea class="textarea" placeholder="Write your reflection here..."></textarea>
+                            </div>
+                        </div>
+                        <button class="button button-primary copy-button" onclick="copyAllResponses('critical-reading')">
+                            <span>📋</span>
+                            <span>Copy All Responses</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Session Reflection Tab -->
+            <div id="session-reflection" class="tab-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Session Reflection</h2>
+                        <p class="card-description">Synthesize your analysis and reflection into key insights</p>
+                    </div>
+                    <div class="card-content space-y-6">
+                        <div class="question-card">
+                            <h4 class="question-title">1. What are the most significant similarities and differences between how your two selected articles approach your chosen theme?</h4>
+                            <textarea class="textarea" placeholder="Write your response here..."></textarea>
+                        </div>
+                        <div class="question-card">
+                            <h4 class="question-title">2. How has engaging with these articles deepened your understanding of your chosen theme within the South African context?</h4>
+                            <textarea class="textarea" placeholder="Write your response here..."></textarea>
+                        </div>
+                        <div class="question-card">
+                            <h4 class="question-title">3. What critical perspective will you bring to your reading reflection essay? What will be your main argument or thesis?</h4>
+                            <textarea class="textarea" placeholder="Write your response here..."></textarea>
+                        </div>
+                        <div class="question-card">
+                            <h4 class="question-title">4. How will you synthesize the arguments from both articles to create a coherent critical response rather than just summarizing each article separately?</h4>
+                            <textarea class="textarea" placeholder="Write your response here..."></textarea>
+                        </div>
+                        <button class="button button-primary copy-button" onclick="copyAllResponses('session-reflection')">
+                            <span>📋</span>
+                            <span>Copy All Responses</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GenAI Integration Tab -->
+            <div id="genai-integration" class="tab-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">GenAI Integration</h2>
+                        <p class="card-description">Part B: GenAI Image and Translanguaging Component</p>
+                    </div>
+                    <div class="card-content space-y-6">
+                        <h3 class="text-lg font-semibold text-gray-800">Generated Image</h3>
+                        <p class="text-gray-600">This image represents economic development and challenges in South Africa, connecting to the EMS themes.</p>
+                        <img src="https://images.unsplash.com/photo-1563013541-2d0df2c00e71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="GenAI Generated Image on Economic Development" class="genai-image">
+                        <p class="image-caption">Figure 1: AI-generated image representing economic development challenges (Example, 2025).</p>
+                        <div class="language-section">
+                            <h4>L1: isiZulu</h4>
+                            <p>Ukuthuthukiswa komnotho kudinga amabhizinisi amasha, izinhlelo zemfundo, kanye nokubambisana phakathi kohulumeni nabantu.</p>
+                        </div>
+                        <div class="language-section">
+                            <h4>L2: English</h4>
+                            <p>Economic development requires new businesses, educational programs, and collaboration between government and people.</p>
+                        </div>
+                        <div class="citation-box">
+                            <h4>Reference Citation (Harvard Style)</h4>
+                            <p>When citing an AI-generated image in your reference list, use the following format:</p>
+                            <div class="citation-example">
+                                AI Generator (2025) <i>AI-generated image representing economic development challenges</i> [Digital image]. Created using [AI Tool Name]. 
+                            </div>
+                            <p style="margin-top: 1rem;"><strong>Note:</strong> Replace [AI Tool Name] with the specific AI tool you used to generate your image.</p>
+                        </div>
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-700">Assignment Requirement</h4>
+                            <p>This GenAI image and translanguaging component is part of Assignment 2 requirements. The image should capture the theme of your reading reflection or your personal response to the articles, accompanied by text in at least two languages.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="navigation-buttons">
+                <button class="button button-outline" onclick="previousTab()">
+                    <span>← Previous</span>
+                </button>
+                <button class="button button-primary" onclick="nextTab()">
+                    <span>Next →</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer with Hit Counter -->
+    <footer>
+        <div class="counter-container">
+            <div class="counter-label">Total Page Visits</div>
+            <div class="counter-wrapper">
+                <div id="sfce12aua7unus6hsqy4cycg9hewu4wm1wy"></div>
+            </div>
+            <p>This page has been visited by students working on their academic literacy skills</p>
+        </div>
+    </footer>
+
+    <script>
+        let currentTab = 'session-outcomes';
+        const tabs = ['session-outcomes', 'instructions', 'theme-selection', 'article-analysis', 'critical-reading', 'session-reflection', 'genai-integration'];
+        let selectedTheme = null;
+
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            document.querySelectorAll('.nav-button').forEach(button => button.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+            
+            // Find and activate the corresponding navigation button
+            const activeButton = Array.from(document.querySelectorAll('.nav-button')).find(button => {
+                return button.textContent.toLowerCase().includes(tabName.replace(/-/g, ' '));
+            });
+            
+            if (activeButton) {
+                activeButton.classList.add('active');
+            }
+            
+            currentTab = tabName;
+            document.querySelector('.main-content').scrollTo(0, 0);
+        }
+
+        function previousTab() {
+            const currentIndex = tabs.indexOf(currentTab);
+            if (currentIndex > 0) {
+                showTab(tabs[currentIndex - 1]);
+            }
+        }
+
+        function nextTab() {
+            const currentIndex = tabs.indexOf(currentTab);
+            if (currentIndex < tabs.length - 1) {
+                showTab(tabs[currentIndex + 1]);
+            }
+        }
+
+        function selectTheme(card, themeNumber) {
+            // Remove selected class from all theme cards
+            document.querySelectorAll('.theme-card').forEach(c => c.classList.remove('selected'));
+            
+            // Add selected class to clicked card
+            card.classList.add('selected');
+            
+            // Update selected theme
+            selectedTheme = themeNumber;
+            
+            // Update the selected theme display
+            const themeDisplay = document.getElementById('selected-theme-display');
+            const themeText = document.getElementById('selected-theme-text');
+            
+            themeText.textContent = `You have selected Theme ${themeNumber}: ${card.querySelector('h4').textContent.split(': ')[1]}`;
+            themeDisplay.style.display = 'block';
+        }
+
+        function copyAllResponses(tabId) {
+            const textareas = document.querySelectorAll(`#${tabId} .textarea`);
+            let allResponses = "";
+            textareas.forEach((textarea, index) => {
+                const question = textarea.closest('.question-card').querySelector('.question-title').textContent;
+                const response = textarea.value || "(No response)";
+                allResponses += `Question ${index + 1}: ${question}\n`;
+                allResponses += `Response: ${response}\n`;
+                allResponses += "----------------------------------------\n";
+            });
+            navigator.clipboard.writeText(allResponses).then(() => {
+                alert("All responses copied to clipboard!");
+            }).catch(err => {
+                console.error('Copy failed:', err);
+                alert("Copy failed. Please try again.");
+            });
+        }
+
+        // Initialize active tab
+        document.addEventListener('DOMContentLoaded', () => {
+            showTab('session-outcomes');
+        });
+    </script>
+    <!-- Hit Counter Script -->
+    <script type="text/javascript" src="https://counter5.optistats.ovh/private/counter.js?c=e12aua7unus6hsqy4cycg9hewu4wm1wy&down=async" async></script>
+    <noscript><a href="https://www.freecounterstat.com" title="website counter"><img src="https://counter5.optistats.ovh/private/freecounterstat.php?c=e12aua7unus6hsqy4cycg9hewu4wm1wy" border="0" title="website counter" alt="website counter"></a></noscript>
+</body>
+</html>

@@ -302,6 +302,20 @@
             margin: 15px 0;
         }
         
+        .coming-soon {
+            text-align: center;
+            padding: 40px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .coming-soon-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #6c757d;
+        }
+        
         @media (max-width: 1024px) {
             .content-wrapper {
                 flex-direction: column;
@@ -381,6 +395,7 @@
                 <div class="nav-links">
                     <button class="nav-btn active" onclick="showTab('session-outcomes')">📌 Session Outcomes</button>
                     <button class="nav-btn" onclick="showTab('instructions')">📖 Instructions</button>
+                    <button class="nav-btn" onclick="showTab('required-articles')">📚 Required Articles</button>
                     <button class="nav-btn" onclick="showTab('background')">🎯 Background</button>
                     <button class="nav-btn" onclick="showTab('article-analysis')">🔍 Article Analysis</button>
                     <button class="nav-btn" onclick="showTab('critical-reading')">🧠 Critical Reading</button>
@@ -401,7 +416,7 @@
                         <div class="card-content">
                             <ul style="list-style: none; padding: 0;">
                                 <li style="padding: 15px; margin-bottom: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #00205B;">
-                                    <strong>1️⃣ Identify Argumentation Strategies:</strong> Analyze how authors construct arguments in youth unemployment discourse
+                                    <strong>1️⃣ Identify Argumentation Strategies:</strong> Analyse how authors construct arguments in youth unemployment discourse
                                 </li>
                                 <li style="padding: 15px; margin-bottom: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #FF8200;">
                                     <strong>2️⃣ Evaluate Evidence:</strong> Assess the quality and relevance of evidence used to support claims about youth unemployment
@@ -466,15 +481,15 @@
                                             <span>Focus on youth unemployment in South Africa</span>
                                         </li>
                                         <li style="padding: 12px; margin-bottom: 12px; background: #f8f9fa; border-radius: 6px; display: flex; align-items: center; gap: 10px;">
-                                            <span style="background: #00205B; color: white; width: 25px; height: 25px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">✓</span>
+                                            <span style="background: #00205B; colour: white; width: 25px; height: 25px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">✓</span>
                                             <span>Due: 8-15 September 2025</span>
                                         </li>
                                         <li style="padding: 12px; margin-bottom: 12px; background: #f8f9fa; border-radius: 6px; display: flex; align-items: center; gap: 10px;">
-                                            <span style="background: #00205B; color: white; width: 25px; height: 25px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">✓</span>
+                                            <span style="background: #00205B; colour: white; width: 25px; height: 25px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">✓</span>
                                             <span>Weight: 30 marks</span>
                                         </li>
                                         <li style="padding: 12px; background: #f8f9fa; border-radius: 6px; display: flex; align-items: center; gap: 10px;">
-                                            <span style="background: #00205B; color: white; width: 25px; height: 25px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">✓</span>
+                                            <span style="background: #00205B; colour: white; width: 25px; height: 25px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">✓</span>
                                             <span>Submission via clickUP (Turnitin-enabled)</span>
                                         </li>
                                     </ul>
@@ -488,7 +503,7 @@
                                         </div>
                                         <div style="padding: 15px; background: #fffbeb; border-radius: 8px;">
                                             <h4 style="color: #00205B; margin-bottom: 8px;">Critical Analysis</h4>
-                                            <p style="color: #00205B; font-size: 0.95rem;">Not just description - analyze and evaluate arguments</p>
+                                            <p style="color: #00205B; font-size: 0.95rem;">Not just description - analyse and evaluate arguments</p>
                                         </div>
                                         <div style="padding: 15px; background: #f0fdf4; border-radius: 8px;">
                                             <h4 style="color: #00205B; margin-bottom: 8px;">EMS Connections</h4>
@@ -515,7 +530,7 @@
                                     </div>
                                     <div>
                                         <h5 style="color: #00205B; margin-bottom: 8px;">Conclusion</h5>
-                                        <p style="color: #00205B; font-size: 0.9rem;">Synthesize findings and recommendations</p>
+                                        <p style="color: #00205B; font-size: 0.9rem;">Synthesise findings and recommendations</p>
                                     </div>
                                 </div>
                             </div>
@@ -524,6 +539,33 @@
                     
                     <div class="nav-buttons">
                         <button class="btn btn-outline" onclick="showTab('session-outcomes')">
+                            <span>←</span> Previous
+                        </button>
+                        <button class="btn" onclick="showTab('required-articles')">
+                            Next <span>→</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Required Articles Tab -->
+                <div id="required-articles" class="tab-content">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Required Articles</h2>
+                            <p class="card-description">Articles needed for this assignment</p>
+                        </div>
+                        <div class="card-content">
+                            <div class="coming-soon">
+                                <div class="coming-soon-icon">📚</div>
+                                <h3 style="color: #00205B; margin-bottom: 15px;">Article Links Coming Soon</h3>
+                                <p>The required reading articles for this assignment will be available shortly. Please check back later for access to the articles.</p>
+                                <p style="margin-top: 20px; font-style: italic;">In the meantime, you can familiarise yourself with the assignment instructions and background information on youth unemployment.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="nav-buttons">
+                        <button class="btn btn-outline" onclick="showTab('instructions')">
                             <span>←</span> Previous
                         </button>
                         <button class="btn" onclick="showTab('background')">
@@ -540,7 +582,7 @@
                             <p class="card-description">Understanding the context of youth unemployment in South Africa</p>
                         </div>
                         <div class="card-content">
-                            <p style="margin-bottom: 20px;">South Africa has one of the highest youth unemployment rates globally, with complex structural, educational, and economic factors contributing to this challenge. Analyze this issue using the questions below.</p>
+                            <p style="margin-bottom: 20px;">South Africa has one of the highest youth unemployment rates globally, with complex structural, educational, and economic factors contributing to this challenge. Analyse this issue using the questions below.</p>
                             
                             <div class="question-card">
                                 <div class="question-title">1. What are the primary structural factors contributing to youth unemployment in South Africa?</div>
@@ -548,7 +590,7 @@
                             </div>
                             
                             <div class="question-card">
-                                <div class="question-title">2. How does the skills mismatch between education outcomes and labor market demands affect youth employment prospects?</div>
+                                <div class="question-title">2. How does the skills mismatch between education outcomes and labour market demands affect youth employment prospects?</div>
                                 <textarea placeholder="Think about the gap between what education provides and what employers need..."></textarea>
                             </div>
                             
@@ -564,7 +606,7 @@
                     </div>
                     
                     <div class="nav-buttons">
-                        <button class="btn btn-outline" onclick="showTab('instructions')">
+                        <button class="btn btn-outline" onclick="showTab('required-articles')">
                             <span>←</span> Previous
                         </button>
                         <button class="btn" onclick="showTab('article-analysis')">
@@ -578,7 +620,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h2 class="card-title">Article Analysis</h2>
-                            <p class="card-description">Read and analyze the article on youth unemployment</p>
+                            <p class="card-description">Read and analyse the article on youth unemployment</p>
                         </div>
                         <div class="card-content">
                             <a href="https://iol.co.za/news/politics/opinion/2024-03-05-south-africas-youth-unemployment-vulnerabilities-and-lessons-from-chinas-national-system-of-innovation-and-incubation/" class="article-link" target="_blank">
@@ -604,7 +646,7 @@
                             
                             <div class="question-card">
                                 <div class="question-title">3. How does the author use China's National System of Innovation and Incubation as a comparative example?</div>
-                                <textarea placeholder="Analyze the comparison and its effectiveness..."></textarea>
+                                <textarea placeholder="Analyse the comparison and its effectiveness..."></textarea>
                             </div>
                             
                             <button class="btn">
@@ -628,7 +670,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h2 class="card-title">Critical Reading - Argumentation Strategies</h2>
-                            <p class="card-description">Analyze the argumentation strategies used in the article</p>
+                            <p class="card-description">Analyse the argumentation strategies used in the article</p>
                         </div>
                         <div class="card-content">
                             <div style="background: #e6f7ff; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #1890ff;">
@@ -654,7 +696,7 @@
                             </div>
                             
                             <div class="question-card">
-                                <div class="question-title">3. Analyze the logical structure (logos) of the argument. How does the author build their case?</div>
+                                <div class="question-title">3. Analyse the logical structure (logos) of the argument. How does the author build their case?</div>
                                 <textarea placeholder="Examine the sequence of ideas and use of reasoning..."></textarea>
                             </div>
                             
@@ -665,7 +707,7 @@
                             
                             <div class="question-card">
                                 <div class="question-title">5. How does the author address counterarguments or alternative perspectives?</div>
-                                <textarea placeholder="Look for acknowledgment of opposing views..."></textarea>
+                                <textarea placeholder="Look for acknowledgement of opposing views..."></textarea>
                             </div>
                             
                             <button class="btn">
@@ -689,7 +731,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h2 class="card-title">Session Reflection</h2>
-                            <p class="card-description">Synthesize your analysis and reflection on youth unemployment</p>
+                            <p class="card-description">Synthesise your analysis and reflection on youth unemployment</p>
                         </div>
                         <div class="card-content">
                             <div class="question-card">
@@ -740,7 +782,7 @@
                             <p style="margin-bottom: 20px;">This image represents youth unemployment challenges and opportunities in South Africa.</p>
                             
                             <div style="text-align: center; margin: 25px 0;">
-                                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80" alt="Youth Unemployment" style="max-width: 65%; border-radius: 10px; box-shadow: 0 6px 15px rgba(0,0,0,0.1);">
+                                <img src="https://github.com/oeybers-cpu/all_124_assignment2_a/blob/main/Gemini_Generated_Image_dvp3gbdvp3gbdvp3.png?raw=true" alt="Youth Unemployment" style="max-width: 65%; border-radius: 10px; box-shadow: 0 6px 15px rgba(0,0,0,0.1);">
                                 <p style="font-style: italic; color: #6c757d; margin-top: 15px;">Figure 1: AI-generated image representing youth unemployment challenges (Example, 2025).</p>
                             </div>
                             

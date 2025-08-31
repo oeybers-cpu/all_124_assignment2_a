@@ -3,693 +3,417 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Assignment 2: Youth Unemployment Analysis - EMS</title>
+    <title>Youth Unemployment Analysis - EMS</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.6;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
             color: #333;
-            background: linear-gradient(135deg, #f8f5f0 0%, #e8eaf1 100%);
+            line-height: 1.6;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            padding-top: 20px;
         }
+        
         .container {
-            display: flex;
             max-width: 1400px;
             margin: 0 auto;
-            padding: 1rem;
-            gap: 1.5rem;
-            flex: 1;
+            padding: 20px;
         }
-        /* Left Navigation Column */
-        .left-column {
-            width: 250px;
-            padding: 1rem;
+        
+        header {
             background: #00205B;
-            border-radius: 0.75rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             color: white;
-            position: sticky;
-            top: 1rem;
-            height: fit-content;
-        }
-        .nav-title {
-            font-size: 1.2rem;
-            margin-bottom: 1.5rem;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
             text-align: center;
-            padding-bottom: 0.5rem;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 12px;
+            color: #FF8200;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .content-wrapper {
+            display: flex;
+            gap: 25px;
+        }
+        
+        .left-nav {
+            width: 280px;
+            background: #00205B;
+            border-radius: 12px;
+            padding: 20px;
+            color: white;
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+        
+        .nav-title {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            text-align: center;
+            padding-bottom: 15px;
             border-bottom: 2px solid #FF8200;
         }
+        
         .nav-links {
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
+            gap: 12px;
         }
-        .nav-button {
+        
+        .nav-btn {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1rem;
-            border: none;
+            gap: 12px;
+            padding: 15px;
             background: rgba(255, 255, 255, 0.1);
             color: white;
-            border-radius: 0.375rem;
+            border: none;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 1rem;
             font-weight: 500;
-            transition: all 0.2s;
+            transition: all 0.3s;
             text-align: left;
             width: 100%;
         }
-        .nav-button:hover {
+        
+        .nav-btn:hover {
             background: rgba(255, 255, 255, 0.2);
         }
-        .nav-button.active {
+        
+        .nav-btn.active {
             background: #FF8200;
             color: white;
-            font-weight: bold;
-        }
-        /* Button Container for perfect alignment */
-        .button-container {
-            position: fixed;
-            top: 20px;
-            left: 0;
-            right: 0;
-            display: flex;
-            justify-content: space-between;
-            padding: 0 20px;
-            z-index: 1000;
-            pointer-events: none;
-        }
-        .button-container > * {
-            pointer-events: auto;
-        }
-        /* Session Button - Fixed at Left */
-        .session-btn {
-            padding: 12px 24px;
-            border: none;
-            outline: none;
-            color: #FFF;
-            cursor: pointer;
-            border-radius: 10px;
-            text-decoration: none;
             font-weight: 600;
-            font-size: 1rem;
-            background: #FF8200;
-            display: inline-block;
-            box-shadow: 0 0 15px rgba(255, 130, 0, 0.6);
-            transition: all 0.3s ease;
-            position: relative;
-            z-index: 1001;
         }
-        .session-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 20px rgba(255, 130, 0, 0.8);
-            background: #e67300;
-        }
-        .-btn:active {
-            color: #000;
-            font-weight: bold;
-            transform: translateY(0);
-        }
-        /* Enhanced Glowing Home Button - Fixed at Right */
-        .home-btn {
-            padding: 12px 24px;
-            border: none;
-            outline: none;
-            color: #FFF;
-            cursor: pointer;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            background: transparent;
-            display: inline-block;
-            box-shadow: 0 0 15px rgba(255, 130, 0, 0.6);
-            transition: all 0.3s ease;
-            position: relative;
-            z-index: 1001;
-        }
-        .home-btn::after {
-            content: "";
-            z-index: -1;
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-color: #00205B;
-            left: 0;
-            top: 0;
-            border-radius: 10px;
-        }
-        .home-btn::before {
-            content: "";
-            background: linear-gradient(
-                45deg,
-                #FF0000, #FF7300, #FFFB00, #48FF00,
-                #00FFD5, #002BFF, #FF00C8, #FF0000
-            );
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            background-size: 600%;
-            z-index: -2;
-            width: calc(100% + 4px);
-            height: calc(100% + 4px);
-            filter: blur(8px);
-            animation: glowing 20s linear infinite;
-            transition: opacity 0.3s ease-in-out;
-            border-radius: 10px;
-            opacity: 0;
-        }
-        @keyframes glowing {
-            0% { background-position: 0 0; }
-            50% { background-position: 400% 0; }
-            100% { background-position: 0 0; }
-        }
-        .home-btn:hover::before {
-            opacity: 1;
-        }
-        .home-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 20px rgba(255, 130, 0, 0.8);
-        }
-        .home-btn:active {
-            color: #000;
-            font-weight: bold;
-            transform: translateY(0);
-        }
-
-        /* Main Content Area */
+        
         .main-content {
             flex: 1;
             background: white;
-            border-radius: 0.75rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
             overflow: hidden;
-            display: flex;
-            flex-direction: column;
         }
         
         .tab-content {
             display: none;
-            padding: 2rem;
-            flex: 1;
+            padding: 30px;
         }
+        
         .tab-content.active {
             display: block;
+            animation: fadeIn 0.5s ease;
         }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
         .card {
             background: white;
-            border-radius: 0.5rem;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            margin-bottom: 1.5rem;
-            border: 1px solid #e5e7eb;
-        }
-        .card-header {
-            padding: 1.5rem 1.5rem 0;
-        }
-        .card-title {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #00205B;
-            margin-bottom: 0.5rem;
-        }
-        .card-description {
-            color: #6b7280;
-            margin-bottom: 1rem;
-        }
-        .card-content {
-            padding: 1.5rem;
-        }
-        .grid {
-            display: grid;
-            gap: 1.5rem;
-        }
-        .grid-cols-2 {
-            grid-template-columns: repeat(2, 1fr);
-        }
-        .space-y-6 > * + * {
-            margin-top: 1.5rem;
-        }
-        .space-y-4 > * + * {
-            margin-top: 1rem;
-        }
-        .space-y-3 > * + * {
-            margin-top: 0.75rem;
-        }
-        .text-lg {
-            font-size: 1.125rem;
-        }
-        .font-semibold {
-            font-weight: 600;
-        }
-        .font-medium {
-            font-weight: 500;
-        }
-        .text-gray-800 {
-            color: #1f2937;
-        }
-        .text-gray-600 {
-            color: 4b5563;
-        }
-        .text-blue-700 {
-            color: #00205B;
-        }
-        .bg-blue-50 {
-            background-color: #e6eff9;
-        }
-        .bg-gray-50 {
-            background-color: #f9fafb;
-        }
-        .bg-amber-50 {
-            background-color: #fffbeb;
-        }
-        .bg-green-50 {
-            background-color: #f0fdf4;
-        }
-        .p-4 {
-            padding: 1rem;
-        }
-        .rounded-lg {
-            border-radius: 0.5rem;
-        }
-        .topic-badge {
-            display: inline-block;
-            background: #f3f4f6;
-            color: #374151;
-            padding: 0.25rem 0.75rem;
-            border-radius: 0.375rem;
-            font-size: 0.875rem;
-            margin: 0.25rem;
-            border: 1px solid #d1d5db;
-        }
-        .question-card {
-            background: white;
-            border: 1px solid #e5e7eb;
-            border-radius: 0.5rem;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-        }
-        .question-title {
-            font-weight: 500;
-            margin-bottom: 0.75rem;
-            color: #1f2937;
-        }
-        .textarea {
-            width: 100%;
-            min-height: 100px;
-            padding: 0.75rem;
-            border: 1px solid #d1d5db;
-            border-radius: 0.375rem;
-            font-family: inherit;
-            resize: vertical;
-        }
-        .textarea:focus {
-            outline: none;
-            border-color: #00205B;
-            box-shadow: 0 0 0 3px rgba(0, 32, 91, 0.1);
-        }
-        .button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 0.375rem;
-            font-size: 0.875rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .button-primary {
-            background: #00205B;
-            color: white;
-        }
-        .button-primary:hover {
-            background: #001235;
-        }
-        .button-outline {
-            background: white;
-            color: #374151;
-            border: 1px solid #d1d5db;
-        }
-        .button-outline:hover {
-            background: #f9fafb;
-        }
-        .navigation-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-        .blockquote {
-            border-left: 4px solid #00205B;
-            padding-left: 1rem;
-            font-style: italic;
-            color: #4b5563;
-            margin: 1rem 0;
-        }
-        .article-link-box {
-            background: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 25px;
             border: 1px solid #e9ecef;
-            border-radius: 0.5rem;
-            padding: 1rem;
-            margin: 1rem 0;
-        }
-        .article-link-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: #00205B;
-            color: white;
-            padding: 0.6rem 1.2rem;
-            border-radius: 0.375rem;
-            text-decoration: none;
-            font-weight: 500;
-            transition: background 0.2s;
-        }
-        .article-link-button:hover {
-            background: #001235;
-        }
-        .outcomes-list li {
-            padding: 1rem;
-            margin-bottom: 1rem;
-            border-radius: 0.5rem;
-            background: #f8f9fa;
-            border-left: 4px solid #00205B;
-        }
-        .outcomes-list li:nth-child(2) {
-            border-left-color: #FF8200;
-        }
-        .outcomes-list li:nth-child(3) {
-            border-left-color: #10b981;
-        }
-        .outcomes-list li:nth-child(4) {
-            border-left-color: #8b5cf6;
-        }
-        /* GenAI Image Styles */
-        .genai-image {
-            max-width: 35%;
-            height: auto;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin: 1rem 0;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .image-caption {
-            text-align: center;
-            font-style: italic;
-            color: #6b7280;
-            margin-bottom: 1.5rem;
-            font-size: 0.9rem;
-        }
-        .language-section {
-            background-color: #f8f9fa;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            margin: 1rem 0;
-            border-left: 4px solid #FF8200;
-        }
-        .language-section h4 {
-            color: #00205B;
-            margin-bottom: 0.5rem;
-        }
-        .citation-box {
-            background-color: #f0f4f8;
-            padding: 1.5rem;
-            border-radius: 0.5rem;
-            border-left: 4px solid #00205B;
-            margin-top: 1.5rem;
-        }
-        .citation-box h4 {
-            color: #00205B;
-            margin-bottom: 0.75rem;
-        }
-        .citation-example {
-            font-family: monospace;
-            background-color: white;
-            padding: 1rem;
-            border-radius: 0.25rem;
-            border: 1px solid #d1d5db;
-            overflow-x: auto;
-        }
-        /* Footer Styles */
-        footer {
-            text-align: center;
-            padding: 1.5rem;
-            background: #00205B;
-            color: white;
-            margin-top: auto;
-            width: 100%;
-        }
-        .counter-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 0.5rem 0;
-            font-size: 0.9rem;
-        }
-        .counter-container p {
-            margin: 0.25rem 0;
-            color: #FF8200;
-        }
-        /* ENLARGED COUNTER */
-        .counter-wrapper {
-            font-size: 3.5rem !important;
-            font-weight: bold;
-            color: #FF8200 !important;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
-            margin: 0.5rem 0;
-            padding: 0.5rem 1.5rem;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            min-width: 300px;
-            letter-spacing: 1px;
-        }
-        .counter-label {
-            font-size: 1.2rem;
-            color: white;
-            margin-bottom: 0.5rem;
         }
         
-        /* Page Title Styling */
-        .page-title {
-            text-align: center;
-            margin: 70px 0 2rem 0;
-            color: #00205B;
-            font-size: 2rem;
-            font-weight: bold;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 0.75rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        .card-header {
+            padding: 25px 25px 0;
         }
         
-        /* Statistics Panel */
-        .stats-panel {
-            background: #e6eff9;
-            border-radius: 0.5rem;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-        .stats-title {
-            font-size: 1.3rem;
+        .card-title {
+            font-size: 1.6rem;
+            font-weight: bold;
             color: #00205B;
-            margin-bottom: 1rem;
-            text-align: center;
+            margin-bottom: 10px;
         }
+        
+        .card-description {
+            color: #6c757d;
+            margin-bottom: 20px;
+        }
+        
+        .card-content {
+            padding: 25px;
+        }
+        
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-        }
-        .stat-item {
-            background: white;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            text-align: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-        }
-        .stat-value {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #FF8200;
-            margin-bottom: 0.5rem;
-        }
-        .stat-label {
-            color: #6b7280;
-            font-size: 0.9rem;
+            gap: 20px;
+            margin: 25px 0;
         }
         
-        /* Responsive Adjustments */
+        .stat-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .stat-value {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #FF8200;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            color: #6c757d;
+            font-size: 1rem;
+        }
+        
+        .question-card {
+            background: #f8f9fa;
+            border-left: 5px solid #00205B;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+        
+        .question-title {
+            font-weight: 600;
+            margin-bottom: 18px;
+            color: #00205B;
+            font-size: 1.15rem;
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 18px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            resize: vertical;
+            min-height: 120px;
+            font-size: 1.05rem;
+            transition: border-color 0.3s;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: #00205B;
+            box-shadow: 0 0 0 4px rgba(0, 32, 91, 0.1);
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            background: #00205B;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-right: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .btn:hover {
+            background: #001235;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #00205B;
+            color: #00205B;
+        }
+        
+        .btn-outline:hover {
+            background: #00205B;
+            color: white;
+        }
+        
+        .article-link {
+            display: block;
+            background: #00205B;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            margin: 25px 0;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .article-link:hover {
+            background: #001235;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .article-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .article-icon {
+            font-size: 2.5rem;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        .counter-container {
+            text-align: center;
+            padding: 20px;
+            background: #00205B;
+            color: white;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+        
+        .counter-wrapper {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #FF8200;
+            margin: 15px 0;
+        }
+        
         @media (max-width: 1024px) {
-            .container {
+            .content-wrapper {
                 flex-direction: column;
             }
-            .left-column {
+            
+            .left-nav {
                 width: 100%;
-                margin-bottom: 1rem;
                 position: static;
+                margin-bottom: 20px;
             }
-            .button-container {
-                padding: 0 10px;
-                top: 10px;
-            }
-            .home-btn, .-btn {
-                padding: 10px 16px;
-                font-size: 0.9rem;
-            }
+            
             .nav-links {
                 flex-direction: row;
                 flex-wrap: wrap;
-                justify-content: center;
             }
-            .nav-button {
-                width: auto;
+            
+            .nav-btn {
                 flex: 1;
-                min-width: 120px;
+                min-width: 160px;
                 justify-content: center;
-                font-size: 0.85rem;
-            }
-            .page-title {
-                margin-top: 60px;
-                font-size: 1.5rem;
             }
         }
+        
         @media (max-width: 768px) {
-            .grid-cols-2 {
-                grid-template-columns: 1fr;
-            }
-            .genai-image {
-                max-width: 65%;
-            }
-            .tab-content {
-                padding: 1rem;
-            }
             .stats-grid {
                 grid-template-columns: 1fr;
             }
-            .counter-wrapper {
-                font-size: 2.5rem !important;
-                min-width: 250px;
-                padding: 0.4rem 1rem;
+            
+            h1 {
+                font-size: 2.2rem;
             }
-            .page-title {
-                font-size: 1.3rem;
-                margin-top: 50px;
+            
+            .nav-btn {
+                min-width: 140px;
+                font-size: 0.9rem;
             }
-            .home-btn, .-btn {
-                font-size: 0.8rem;
-                padding: 8px 12px;
+            
+            .article-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
             }
         }
+        
         @media (max-width: 480px) {
-            .nav-button {
-                min-width: 100px;
-                font-size: 0.8rem;
-                padding: 0.6rem 0.5rem;
+            .nav-links {
+                flex-direction: column;
             }
-            .genai-image {
-                max-width: 85%;
+            
+            .nav-btn {
+                width: 100%;
             }
-            .counter-wrapper {
-                font-size: 2rem !important;
-                min-width: 200px;
-                padding: 0.3rem 0.8rem;
+            
+            .btn {
+                width: 100%;
+                margin-right: 0;
             }
-            .counter-label {
-                font-size: 1rem;
-            }
-            .home-btn, .-btn {
-                padding: 6px 10px;
-                font-size: 0.7rem;
-            }
-            .button-container {
-                padding: 0 5px;
-            }
-            .page-title {
-                font-size: 1.1rem;
-                margin-top: 45px;
-                padding: 0.5rem;
+            
+            .nav-buttons {
+                flex-direction: column;
+                gap: 15px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Button Container for perfect alignment -->
-    <div class="button-container">
-        <!-- Session Button (Fixed at Left) -->
-        <div class="session-btn">ALL 124_Session 1_Week 6</div>
-
-        <!-- Enhanced Glowing Home Button (Fixed at Right) -->
-        <a href="https://oeybers-cpu.github.io/a_lit_models/" class="home-btn">Academic Literacy Home</a>
-    </div>
-
-    <!-- Page Title to replace the removed header -->
-    <h1 class="page-title">Assignment 2: Youth Unemployment Analysis - EMS</h1>
-
     <div class="container">
-        <!-- Left Navigation Column -->
-        <div class="left-column">
-            <h2 class="nav-title">Assignment 2 Navigation</h2>
-            <div class="nav-links">
-                <button class="nav-button active" onclick="showTab('session-outcomes')">
-                    <span>📌</span>
-                    <span>Session Outcomes</span>
-                </button>
-                <button class="nav-button" onclick="showTab('instructions')">
-                    <span>📖</span>
-                    <span>Instructions</span>
-                </button>
-                <button class="nav-button" onclick="showTab('youth-unemployment')">
-                    <span>🎯</span>
-                    <span>Youth Unemployment</span>
-                </button>
-                <button class="nav-button" onclick="showTab('critical-reading')">
-                    <span>🔍</span>
-                    <span>Critical Reading</span>
-                </button>
-                <button class="nav-button" onclick="showTab('session-reflection')">
-                    <span>📝</span>
-                    <span>Session Reflection</span>
-                </button>
-                <button class="nav-button" onclick="showTab('genai-integration')">
-                    <span>🤖</span>
-                    <span>GenAI Integration</span>
-                </button>
+        <header>
+            <h1>Youth Unemployment in South Africa</h1>
+            <p class="subtitle">Academic Analysis for EMS Students - Critical Reading & Argumentation Strategies</p>
+        </header>
+        
+        <div class="content-wrapper">
+            <!-- Left Navigation -->
+            <div class="left-nav">
+                <h2 class="nav-title">Assignment Navigation</h2>
+                <div class="nav-links">
+                    <button class="nav-btn active" onclick="showTab('session-outcomes')">📌 Session Outcomes</button>
+                    <button class="nav-btn" onclick="showTab('instructions')">📖 Instructions</button>
+                    <button class="nav-btn" onclick="showTab('background')">🎯 Background</button>
+                    <button class="nav-btn" onclick="showTab('article-analysis')">🔍 Article Analysis</button>
+                    <button class="nav-btn" onclick="showTab('critical-reading')">🧠 Critical Reading</button>
+                    <button class="nav-btn" onclick="showTab('session-reflection')">📝 Reflection</button>
+                    <button class="nav-btn" onclick="showTab('genai')">🤖 GenAI Integration</button>
+                </div>
             </div>
-        </div>
-
-        <!-- Main Content Area -->
-        <div class="main-content">
-            <!-- Session Outcomes Tab -->
-            <div id="session-outcomes" class="tab-content active">
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">Session Outcomes</h2>
-                        <p class="card-description">Key learning goals for engaging with youth unemployment analysis</p>
-                    </div>
-                    <div class="card-content space-y-6">
-                        <ul class="space-y-2 text-gray-800 text-lg">
-                            <li>1️⃣ Analyze the structural factors contributing to youth unemployment in South Africa</li>
-                            <li>2️⃣ Evaluate different economic theories and their explanations for youth unemployment</li>
-                            <li>3️⃣ Connect youth unemployment issues to EMS disciplines and potential solutions</li>
-                            <li>4️⃣ Develop critical perspectives on policy interventions and their effectiveness</li>
-                        </ul>
-                        
-                        <div class="stats-panel">
-                            <h3 class="stats-title">Youth Unemployment in South Africa</h3>
+            
+            <!-- Main Content -->
+            <div class="main-content">
+                <!-- Session Outcomes Tab -->
+                <div id="session-outcomes" class="tab-content active">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Session Outcomes</h2>
+                            <p class="card-description">Key learning goals for engaging with youth unemployment analysis</p>
+                        </div>
+                        <div class="card-content">
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="padding: 15px; margin-bottom: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #00205B;">
+                                    <strong>1️⃣ Identify Argumentation Strategies:</strong> Analyze how authors construct arguments in youth unemployment discourse
+                                </li>
+                                <li style="padding: 15px; margin-bottom: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #FF8200;">
+                                    <strong>2️⃣ Evaluate Evidence:</strong> Assess the quality and relevance of evidence used to support claims about youth unemployment
+                                </li>
+                                <li style="padding: 15px; margin-bottom: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #10b981;">
+                                    <strong>3️⃣ Connect to EMS Disciplines:</strong> Relate youth unemployment issues to Economics, Management, and Entrepreneurship principles
+                                </li>
+                                <li style="padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #8b5cf6;">
+                                    <strong>4️⃣ Develop Critical Perspectives:</strong> Formulate informed opinions on youth unemployment policies and solutions
+                                </li>
+                            </ul>
+                            
                             <div class="stats-grid">
                                 <div class="stat-item">
                                     <div class="stat-value">63.9%</div>
@@ -710,337 +434,407 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <!-- Instructions Tab -->
-            <div id="instructions" class="tab-content">
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">Assignment Instructions</h2>
-                        <p class="card-description">Complete overview of Assignment 2: Youth Unemployment Analysis</p>
+                    
+                    <div class="nav-buttons">
+                        <button class="btn btn-outline" onclick="showTab('instructions')">
+                            <span>←</span> Previous
+                        </button>
+                        <button class="btn" onclick="showTab('instructions')">
+                            Next <span>→</span>
+                        </button>
                     </div>
-                    <div class="card-content space-y-6">
-                        <div class="grid grid-cols-2">
-                            <div>
-                                <h3 class="text-lg font-semibold text-gray-800" style="margin-bottom: 0.75rem;">Assignment Overview</h3>
-                                <ul class="space-y-2">
-                                    <li style="display: flex; align-items: flex-start; gap: 0.5rem;">
-                                        <span class="checkmark">✓</span>
-                                        <span>850-1000 word critical analysis</span>
-                                    </li>
-                                    <li style="display: flex; align-items: flex-start; gap: 0.5rem;">
-                                        <span class="checkmark">✓</span>
-                                        <span>Focus on youth unemployment in South Africa</span>
-                                    </li>
-                                    <li style="display: flex; align-items: flex-start; gap: 0.5rem;">
-                                        <span class="checkmark">✓</span>
-                                        <span>Due: 8-15 September 2025</span>
-                                    </li>
-                                    <li style="display: flex; align-items: flex-start; gap: 0.5rem;">
-                                        <span class="checkmark">✓</span>
-                                        <span>Weight: 30 marks</span>
-                                    </li>
-                                    <li style="display: flex; align-items: flex-start; gap: 0.5rem;">
-                                        <span class="checkmark">✓</span>
-                                        <span>Submission via clickUP (Turnitin-enabled)</span>
-                                    </li>
+                </div>
+                
+                <!-- Instructions Tab -->
+                <div id="instructions" class="tab-content">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Assignment Instructions</h2>
+                            <p class="card-description">Complete overview of Assignment 2: Youth Unemployment Analysis</p>
+                        </div>
+                        <div class="card-content">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px;">
+                                <div>
+                                    <h3 style="color: #00205B; margin-bottom: 20px;">Assignment Overview</h3>
+                                    <ul style="list-style: none; padding: 0;">
+                                        <li style="padding: 12px; margin-bottom: 12px; background: #f8f9fa; border-radius: 6px; display: flex; align-items: center; gap: 10px;">
+                                            <span style="background: #00205B; color: white; width: 25px; height: 25px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">✓</span>
+                                            <span>850-1000 word critical analysis</span>
+                                        </li>
+                                        <li style="padding: 12px; margin-bottom: 12px; background: #f8f9fa; border-radius: 6px; display: flex; align-items: center; gap: 10px;">
+                                            <span style="background: #00205B; color: white; width: 25px; height: 25px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">✓</span>
+                                            <span>Focus on youth unemployment in South Africa</span>
+                                        </li>
+                                        <li style="padding: 12px; margin-bottom: 12px; background: #f8f9fa; border-radius: 6px; display: flex; align-items: center; gap: 10px;">
+                                            <span style="background: #00205B; color: white; width: 25px; height: 25px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">✓</span>
+                                            <span>Due: 8-15 September 2025</span>
+                                        </li>
+                                        <li style="padding: 12px; margin-bottom: 12px; background: #f8f9fa; border-radius: 6px; display: flex; align-items: center; gap: 10px;">
+                                            <span style="background: #00205B; color: white; width: 25px; height: 25px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">✓</span>
+                                            <span>Weight: 30 marks</span>
+                                        </li>
+                                        <li style="padding: 12px; background: #f8f9fa; border-radius: 6px; display: flex; align-items: center; gap: 10px;">
+                                            <span style="background: #00205B; color: white; width: 25px; height: 25px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">✓</span>
+                                            <span>Submission via clickUP (Turnitin-enabled)</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h3 style="color: #00205B; margin-bottom: 20px;">Key Requirements</h3>
+                                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                                        <div style="padding: 15px; background: #e6eff9; border-radius: 8px;">
+                                            <h4 style="color: #00205B; margin-bottom: 8px;">Harvard Referencing</h4>
+                                            <p style="color: #00205B; font-size: 0.95rem;">All sources must be properly cited using Harvard style</p>
+                                        </div>
+                                        <div style="padding: 15px; background: #fffbeb; border-radius: 8px;">
+                                            <h4 style="color: #00205B; margin-bottom: 8px;">Critical Analysis</h4>
+                                            <p style="color: #00205B; font-size: 0.95rem;">Not just description - analyze and evaluate arguments</p>
+                                        </div>
+                                        <div style="padding: 15px; background: #f0fdf4; border-radius: 8px;">
+                                            <h4 style="color: #00205B; margin-bottom: 8px;">EMS Connections</h4>
+                                            <p style="color: #00205B; font-size: 0.95rem;">Connect youth unemployment to EMS disciplines</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="background: #e6eff9; padding: 20px; border-radius: 8px; margin-top: 25px;">
+                                <h4 style="color: #00205B; margin-bottom: 15px;">Assignment Structure</h4>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                                    <div>
+                                        <h5 style="color: #00205B; margin-bottom: 8px;">Introduction</h5>
+                                        <p style="color: #00205B; font-size: 0.9rem;">Context and thesis statement on youth unemployment</p>
+                                    </div>
+                                    <div>
+                                        <h5 style="color: #00205B; margin-bottom: 8px;">Analysis</h5>
+                                        <p style="color: #00205B; font-size: 0.9rem;">Examine causes, impacts, and potential solutions</p>
+                                    </div>
+                                    <div>
+                                        <h5 style="color: #00205B; margin-bottom: 8px;">EMS Perspectives</h5>
+                                        <p style="color: #00205B; font-size: 0.9rem;">Economic, management, and entrepreneurial angles</p>
+                                    </div>
+                                    <div>
+                                        <h5 style="color: #00205B; margin-bottom: 8px;">Conclusion</h5>
+                                        <p style="color: #00205B; font-size: 0.9rem;">Synthesize findings and recommendations</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="nav-buttons">
+                        <button class="btn btn-outline" onclick="showTab('session-outcomes')">
+                            <span>←</span> Previous
+                        </button>
+                        <button class="btn" onclick="showTab('background')">
+                            Next <span>→</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Background Tab -->
+                <div id="background" class="tab-content">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Youth Unemployment Background</h2>
+                            <p class="card-description">Understanding the context of youth unemployment in South Africa</p>
+                        </div>
+                        <div class="card-content">
+                            <p style="margin-bottom: 20px;">South Africa has one of the highest youth unemployment rates globally, with complex structural, educational, and economic factors contributing to this challenge. Analyze this issue using the questions below.</p>
+                            
+                            <div class="question-card">
+                                <div class="question-title">1. What are the primary structural factors contributing to youth unemployment in South Africa?</div>
+                                <textarea placeholder="Consider economic, educational, and social factors..."></textarea>
+                            </div>
+                            
+                            <div class="question-card">
+                                <div class="question-title">2. How does the skills mismatch between education outcomes and labor market demands affect youth employment prospects?</div>
+                                <textarea placeholder="Think about the gap between what education provides and what employers need..."></textarea>
+                            </div>
+                            
+                            <div class="question-card">
+                                <div class="question-title">3. What historical and economic policies have contributed to the current youth unemployment crisis?</div>
+                                <textarea placeholder="Consider apartheid legacy, economic policies, and global influences..."></textarea>
+                            </div>
+                            
+                            <button class="btn">
+                                <span>📋</span> Copy Responses
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="nav-buttons">
+                        <button class="btn btn-outline" onclick="showTab('instructions')">
+                            <span>←</span> Previous
+                        </button>
+                        <button class="btn" onclick="showTab('article-analysis')">
+                            Next <span>→</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Article Analysis Tab -->
+                <div id="article-analysis" class="tab-content">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Article Analysis</h2>
+                            <p class="card-description">Read and analyze the article on youth unemployment</p>
+                        </div>
+                        <div class="card-content">
+                            <a href="https://iol.co.za/news/politics/opinion/2024-03-05-south-africas-youth-unemployment-vulnerabilities-and-lessons-from-chinas-national-system-of-innovation-and-incubation/" class="article-link" target="_blank">
+                                <div class="article-content">
+                                    <div class="article-icon">📰</div>
+                                    <div>
+                                        <h3>South Africa's Youth Unemployment Vulnerabilities and Lessons from China's National System of Innovation and Incubation</h3>
+                                        <p>IOL News - Politics Opinion - March 5, 2024</p>
+                                    </div>
+                                    <div>🔗</div>
+                                </div>
+                            </a>
+                            
+                            <div class="question-card">
+                                <div class="question-title">1. What is the author's central thesis or main argument about youth unemployment?</div>
+                                <textarea placeholder="Identify the primary claim the author is making..."></textarea>
+                            </div>
+                            
+                            <div class="question-card">
+                                <div class="question-title">2. What evidence does the author use to support their argument? (e.g., statistics, case studies, expert opinions)</div>
+                                <textarea placeholder="List and evaluate the types of evidence presented..."></textarea>
+                            </div>
+                            
+                            <div class="question-card">
+                                <div class="question-title">3. How does the author use China's National System of Innovation and Incubation as a comparative example?</div>
+                                <textarea placeholder="Analyze the comparison and its effectiveness..."></textarea>
+                            </div>
+                            
+                            <button class="btn">
+                                <span>📋</span> Copy Responses
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="nav-buttons">
+                        <button class="btn btn-outline" onclick="showTab('background')">
+                            <span>←</span> Previous
+                        </button>
+                        <button class="btn" onclick="showTab('critical-reading')">
+                            Next <span>→</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Critical Reading Tab -->
+                <div id="critical-reading" class="tab-content">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Critical Reading - Argumentation Strategies</h2>
+                            <p class="card-description">Analyze the argumentation strategies used in the article</p>
+                        </div>
+                        <div class="card-content">
+                            <div style="background: #e6f7ff; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #1890ff;">
+                                <h3 style="color: #00205B; margin-bottom: 12px;">Identifying Argumentation Strategies</h3>
+                                <p>Authors use various strategies to persuade readers. Look for these techniques in the article:</p>
+                                <ul style="margin: 15px 0; padding-left: 20px;">
+                                    <li><strong>Ethos:</strong> Appeals to credibility and authority</li>
+                                    <li><strong>Pathos:</strong> Appeals to emotions and values</li>
+                                    <li><strong>Logos:</strong> Appeals to logic and reason</li>
+                                    <li><strong>Evidence:</strong> Use of data, examples, and research</li>
+                                    <li><strong>Rhetorical devices:</strong> Language choices that enhance persuasion</li>
                                 </ul>
                             </div>
-                            <div>
-                                <h3 class="text-lg font-semibold text-gray-800" style="margin-bottom: 0.75rem;">Key Requirements</h3>
-                                <div class="space-y-2">
-                                    <div class="bg-blue-50 p-3 rounded-lg">
-                                        <h4 class="font-medium text-blue-700">Harvard Referencing</h4>
-                                        <p style="font-size: 0.875rem; color: #00205B;">All sources must be properly cited using Harvard style</p>
-                                    </div>
-                                    <div class="bg-amber-50 p-3 rounded-lg">
-                                        <h4 class="font-medium text-blue-700">Critical Analysis</h4>
-                                        <p style="font-size: 0.875rem; color: #00205B;">Not just description - analyze and evaluate arguments</p>
-                                    </div>
-                                    <div class="bg-green-50 p-3 rounded-lg">
-                                        <h4 class="font-medium text-blue-700">EMS Connections</h4>
-                                        <p style="font-size: 0.875rem; color: #00205B;">Connect youth unemployment to EMS disciplines</p>
-                                    </div>
-                                </div>
+                            
+                            <div class="question-card">
+                                <div class="question-title">1. How does the author establish their credibility (ethos) to speak on this topic?</div>
+                                <textarea placeholder="Consider qualifications, use of experts, or demonstration of knowledge..."></textarea>
                             </div>
-                        </div>
-                        <div class="bg-blue-50 p-4 rounded-lg">
-                            <h4 class="font-semibold text-blue-700" style="margin-bottom: 0.5rem;">Assignment Structure</h4>
-                            <div class="grid grid-cols-2">
-                                <div>
-                                    <h5 class="font-medium text-blue-700">Introduction</h5>
-                                    <p style="font-size: 0.875rem; color: #00205B;">Context and thesis statement on youth unemployment</p>
-                                </div>
-                                <div>
-                                    <h5 class="font-medium text-blue-700">Analysis</h5>
-                                    <p style="font-size: 0.875rem; color: #00205B;">Examine causes, impacts, and potential solutions</p>
-                                </div>
-                                <div>
-                                    <h5 class="font-medium text-blue-700">EMS Perspectives</h5>
-                                    <p style="font-size: 0.875rem; color: #00205B;">Economic, management, and entrepreneurial angles</p>
-                                </div>
-                                <div>
-                                    <h5 class="font-medium text-blue-700">Conclusion</h5>
-                                    <p style="font-size: 0.875rem; color: #00205B;">Synthesize findings and recommendations</p>
-                                </div>
+                            
+                            <div class="question-card">
+                                <div class="question-title">2. What emotional appeals (pathos) does the author use, and how effective are they?</div>
+                                <textarea placeholder="Look for language that evokes emotion or personal connection..."></textarea>
                             </div>
+                            
+                            <div class="question-card">
+                                <div class="question-title">3. Analyze the logical structure (logos) of the argument. How does the author build their case?</div>
+                                <textarea placeholder="Examine the sequence of ideas and use of reasoning..."></textarea>
+                            </div>
+                            
+                            <div class="question-card">
+                                <div class="question-title">4. What specific evidence does the author present, and how credible is it?</div>
+                                <textarea placeholder="Evaluate the sources, data, and examples used..."></textarea>
+                            </div>
+                            
+                            <div class="question-card">
+                                <div class="question-title">5. How does the author address counterarguments or alternative perspectives?</div>
+                                <textarea placeholder="Look for acknowledgment of opposing views..."></textarea>
+                            </div>
+                            
+                            <button class="btn">
+                                <span>📋</span> Copy Responses
+                            </button>
                         </div>
+                    </div>
+                    
+                    <div class="nav-buttons">
+                        <button class="btn btn-outline" onclick="showTab('article-analysis')">
+                            <span>←</span> Previous
+                        </button>
+                        <button class="btn" onclick="showTab('session-reflection')">
+                            Next <span>→</span>
+                        </button>
                     </div>
                 </div>
-            </div>
-
-            <!-- Youth Unemployment Tab -->
-            <div id="youth-unemployment" class="tab-content">
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">Youth Unemployment Analysis</h2>
-                        <p class="card-description">Critical analysis of youth unemployment in South Africa</p>
+                
+                <!-- Session Reflection Tab -->
+                <div id="session-reflection" class="tab-content">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Session Reflection</h2>
+                            <p class="card-description">Synthesize your analysis and reflection on youth unemployment</p>
+                        </div>
+                        <div class="card-content">
+                            <div class="question-card">
+                                <div class="question-title">1. How has your understanding of youth unemployment in South Africa evolved through this analysis?</div>
+                                <textarea placeholder="Write your response here..."></textarea>
+                            </div>
+                            
+                            <div class="question-card">
+                                <div class="question-title">2. Which EMS discipline provides the most valuable insights for addressing youth unemployment, and why?</div>
+                                <textarea placeholder="Write your response here..."></textarea>
+                            </div>
+                            
+                            <div class="question-card">
+                                <div class="question-title">3. What personal connections do you see between youth unemployment and your own academic and career aspirations?</div>
+                                <textarea placeholder="Write your response here..."></textarea>
+                            </div>
+                            
+                            <div class="question-card">
+                                <div class="question-title">4. Based on your analysis, what policy recommendations would you propose to address youth unemployment in South Africa?</div>
+                                <textarea placeholder="Write your response here..."></textarea>
+                            </div>
+                            
+                            <button class="btn">
+                                <span>📋</span> Copy Responses
+                            </button>
+                        </div>
                     </div>
-                    <div class="card-content space-y-6">
-                        <div class="bg-gray-50 p-4 rounded-lg">
-                            <h3 class="font-semibold text-gray-800" style="margin-bottom: 0.5rem;">Context</h3>
-                            <p class="text-gray-600">
-                                South Africa has one of the highest youth unemployment rates globally, with complex structural, educational, 
-                                and economic factors contributing to this challenge. Analyze this issue using the questions below.
-                            </p>
+                    
+                    <div class="nav-buttons">
+                        <button class="btn btn-outline" onclick="showTab('critical-reading')">
+                            <span>←</span> Previous
+                        </button>
+                        <button class="btn" onclick="showTab('genai')">
+                            Next <span>→</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- GenAI Integration Tab -->
+                <div id="genai" class="tab-content">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">GenAI Integration</h2>
+                            <p class="card-description">Part B: GenAI Image and Translanguaging Component</p>
                         </div>
-                        
-                        <div id="yu-questions">
-                            <h3 class="text-lg font-semibold text-gray-800">Analytical Questions</h3>
-                            <div class="question-card">
-                                <h4 class="question-title">1. What are the primary structural factors contributing to youth unemployment in South Africa, and how do they interact with each other?</h4>
-                                <textarea class="textarea" placeholder="Write your analysis here..."></textarea>
+                        <div class="card-content">
+                            <h3 style="color: #00205B; margin-bottom: 15px;">Generated Image</h3>
+                            <p style="margin-bottom: 20px;">This image represents youth unemployment challenges and opportunities in South Africa.</p>
+                            
+                            <div style="text-align: center; margin: 25px 0;">
+                                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80" alt="Youth Unemployment" style="max-width: 65%; border-radius: 10px; box-shadow: 0 6px 15px rgba(0,0,0,0.1);">
+                                <p style="font-style: italic; color: #6c757d; margin-top: 15px;">Figure 1: AI-generated image representing youth unemployment challenges (Example, 2025).</p>
                             </div>
-                            <div class="question-card">
-                                <h4 class="question-title">2. How does the skills mismatch between education outcomes and labor market demands affect youth employment prospects?</h4>
-                                <textarea class="textarea" placeholder="Write your analysis here..."></textarea>
+                            
+                            <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #FF8200;">
+                                <h4 style="color: #00205B; margin-bottom: 12px;">L1: isiZulu</h4>
+                                <p>Intsha engasebenzi ingumgogodla wezwe. Kudinga amathuba emisebenzi, izifundo zobuchwepheshe, kanye nokusekelwa kwezimali ukuze kwakhiwe ikusasa elihle.</p>
                             </div>
-                            <div class="question-card">
-                                <h4 class="question-title">3. Compare the effectiveness of government initiatives like the Youth Employment Service (YES) with private sector interventions in addressing youth unemployment.</h4>
-                                <textarea class="textarea" placeholder="Write your analysis here..."></textarea>
+                            
+                            <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #FF8200;">
+                                <h4 style="color: #00205B; margin-bottom: 12px;">L2: English</h4>
+                                <p>Unemployed youth are the nation's backbone. They need job opportunities, skills training, and financial support to build a better future.</p>
                             </div>
-                            <div class="question-card">
-                                <h4 class="question-title">4. What role does entrepreneurship play in solving youth unemployment, and what barriers do young entrepreneurs face in South Africa?</h4>
-                                <textarea class="textarea" placeholder="Write your analysis here..."></textarea>
+                            
+                            <div style="background: #f0f4f8; padding: 25px; border-radius: 8px; margin-top: 25px; border-left: 4px solid #00205B;">
+                                <h4 style="color: #00205B; margin-bottom: 15px;">Reference Citation (Harvard Style)</h4>
+                                <p>When citing an AI-generated image in your reference list, use the following format:</p>
+                                <div style="background: white; padding: 20px; border-radius: 6px; border: 1px solid #ddd; margin: 15px 0; font-family: monospace;">
+                                    AI Generator (2025) <i>AI-generated image representing youth unemployment challenges</i> [Digital image]. Created using [AI Tool Name].
+                                </div>
+                                <p><strong>Note:</strong> Replace [AI Tool Name] with the specific AI tool you used to generate your image.</p>
                             </div>
-                            <div class="question-card">
-                                <h4 class="question-title">5. How do economic policies around minimum wage, labor regulations, and B-BBEE impact youth employment opportunities?</h4>
-                                <textarea class="textarea" placeholder="Write your analysis here..."></textarea>
+                            
+                            <div style="background: #e6eff9; padding: 20px; border-radius: 8px; margin-top: 25px;">
+                                <h4 style="color: #00205B; margin-bottom: 12px;">Assignment Requirement</h4>
+                                <p>This GenAI image and translanguaging component is part of Assignment 2 requirements. The image should capture the theme of youth unemployment or your personal response to the issue, accompanied by text in at least two languages.</p>
                             </div>
                         </div>
-                        <button class="button button-primary copy-button" onclick="copyAllResponses('youth-unemployment')">
-                            <span>📋</span>
-                            <span>Copy All Responses</span>
+                    </div>
+                    
+                    <div class="nav-buttons">
+                        <button class="btn btn-outline" onclick="showTab('session-reflection')">
+                            <span>←</span> Previous
+                        </button>
+                        <button class="btn" onclick="showTab('session-outcomes')">
+                            Return to Start <span>↩️</span>
                         </button>
                     </div>
                 </div>
             </div>
-
-            <!-- Critical Reading Tab -->
-            <div id="critical-reading" class="tab-content">
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">Critical Reading: EMS Connections</h2>
-                        <p class="card-description">Connect youth unemployment issues to EMS disciplines</p>
-                    </div>
-                    <div class="card-content space-y-6">
-                        <div class="bg-gray-50 p-4 rounded-lg">
-                            <h3 class="font-semibold text-gray-800" style="margin-bottom: 0.5rem;">Context</h3>
-                            <p class="text-gray-600">
-                                This section helps you connect youth unemployment issues to various EMS disciplines, including Economics, 
-                                Management, Entrepreneurship, and Accounting.
-                            </p>
-                        </div>
-                        
-                        <div id="cr-questions">
-                            <h3 class="text-lg font-semibold text-gray-800">EMS Discipline Connections</h3>
-                            
-                            <div class="question-card">
-                                <h4 class="question-title">Economics Perspective: How do Keynesian and neoclassical economic theories offer different explanations and solutions for youth unemployment?</h4>
-                                <textarea class="textarea" placeholder="Write your analysis here..."></textarea>
-                            </div>
-                            
-                            <div class="question-card">
-                                <h4 class="question-title">Management Perspective: What management strategies can organizations implement to enhance youth recruitment, training, and retention?</h4>
-                                <textarea class="textarea" placeholder="Write your analysis here..."></textarea>
-                            </div>
-                            
-                            <div class="question-card">
-                                <h4 class="question-title">Entrepreneurship Perspective: How can entrepreneurial education in schools and universities better prepare youth for creating their own employment opportunities?</h4>
-                                <textarea class="textarea" placeholder="Write your analysis here..."></textarea>
-                            </div>
-                            
-                            <div class="question-card">
-                                <h4 class="question-title">Accounting Perspective: How can better financial literacy and access to capital improve youth entrepreneurship and employment outcomes?</h4>
-                                <textarea class="textarea" placeholder="Write your analysis here..."></textarea>
-                            </div>
-                            
-                            <div class="question-card">
-                                <h4 class="question-title">Integrated EMS Approach: Propose a comprehensive strategy that combines insights from multiple EMS disciplines to address youth unemployment.</h4>
-                                <textarea class="textarea" placeholder="Write your analysis here..."></textarea>
-                            </div>
-                        </div>
-                        <button class="button button-primary copy-button" onclick="copyAllResponses('critical-reading')">
-                            <span>📋</span>
-                            <span>Copy All Responses</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Session Reflection Tab -->
-            <div id="session-reflection" class="tab-content">
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">Session Reflection</h2>
-                        <p class="card-description">Synthesize your analysis and reflection on youth unemployment</p>
-                    </div>
-                    <div class="card-content space-y-6">
-                        <div class="question-card">
-                            <h4 class="question-title">1. How has your understanding of youth unemployment in South Africa evolved through this analysis?</h4>
-                            <textarea class="textarea" placeholder="Write your response here..."></textarea>
-                        </div>
-                        <div class="question-card">
-                            <h4 class="question-title">2. Which EMS discipline provides the most valuable insights for addressing youth unemployment, and why?</h4>
-                            <textarea class="textarea" placeholder="Write your response here..."></textarea>
-                        </div>
-                        <div class="question-card">
-                            <h4 class="question-title">3. What personal connections do you see between youth unemployment and your own academic and career aspirations?</h4>
-                            <textarea class="textarea" placeholder="Write your response here..."></textarea>
-                        </div>
-                        <div class="question-card">
-                            <h4 class="question-title">4. Based on your analysis, what policy recommendations would you propose to address youth unemployment in South Africa?</h4>
-                            <textarea class="textarea" placeholder="Write your response here..."></textarea>
-                        </div>
-                        <button class="button button-primary copy-button" onclick="copyAllResponses('session-reflection')">
-                            <span>📋</span>
-                            <span>Copy All Responses</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- GenAI Integration Tab -->
-            <div id="genai-integration" class="tab-content">
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">GenAI Integration</h2>
-                        <p class="card-description">Part B: GenAI Image and Translanguaging Component</p>
-                    </div>
-                    <div class="card-content space-y-6">
-                        <h3 class="text-lg font-semibold text-gray-800">Generated Image</h3>
-                        <p class="text-gray-600">This image represents youth unemployment challenges and opportunities in South Africa.</p>
-                        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80" alt="GenAI Generated Image on Youth Unemployment" class="genai-image">
-                        <p class="image-caption">Figure 1: AI-generated image representing youth unemployment challenges (Example, 2025).</p>
-                        <div class="language-section">
-                            <h4>L1: isiZulu</h4>
-                            <p>Intsha engasebenzi ingumgogodla wezwe. Kudinga amathuba emisebenzi, izifundo zobuchwepheshe, kanye nokusekelwa kwezimali ukuze kwakhiwe ikusasa elihle.</p>
-                        </div>
-                        <div class="language-section">
-                            <h4>L2: English</h4>
-                            <p>Unemployed youth are the nation's backbone. They need job opportunities, skills training, and financial support to build a better future.</p>
-                        </div>
-                        <div class="citation-box">
-                            <h4>Reference Citation (Harvard Style)</h4>
-                            <p>When citing an AI-generated image in your reference list, use the following format:</p>
-                            <div class="citation-example">
-                                AI Generator (2025) <i>AI-generated image representing youth unemployment challenges</i> [Digital image]. Created using [AI Tool Name]. 
-                            </div>
-                            <p style="margin-top: 1rem;"><strong>Note:</strong> Replace [AI Tool Name] with the specific AI tool you used to generate your image.</p>
-                        </div>
-                        <div class="bg-blue-50 p-4 rounded-lg">
-                            <h4 class="font-semibold text-blue-700">Assignment Requirement</h4>
-                            <p>This GenAI image and translanguaging component is part of Assignment 2 requirements. The image should capture the theme of youth unemployment or your personal response to the issue, accompanied by text in at least two languages.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Navigation Buttons -->
-            <div class="navigation-buttons">
-                <button class="button button-outline" onclick="previousTab()">
-                    <span>← Previous</span>
-                </button>
-                <button class="button button-primary" onclick="nextTab()">
-                    <span>Next →</span>
-                </button>
-            </div>
+        </div>
+        
+        <div class="counter-container">
+            <div style="font-size: 1.2rem; margin-bottom: 10px;">Total Page Visits</div>
+            <div class="counter-wrapper">12,459</div>
+            <p>This page has been visited by students working on their academic literacy skills</p>
         </div>
     </div>
 
-    <!-- Footer with Hit Counter -->
-    <footer>
-        <div class="counter-container">
-            <div class="counter-label">Total Page Visits</div>
-            <div class="counter-wrapper">
-                <div id="sfce12aua7unus6hsqy4cycg9hewu4wm1wy"></div>
-            </div>
-            <p>This page has been visited by students working on their academic literacy skills</p>
-        </div>
-    </footer>
-
     <script>
-        let currentTab = 'session-outcomes';
-        const tabs = ['session-outcomes', 'instructions', 'youth-unemployment', 'critical-reading', 'session-reflection', 'genai-integration'];
-
         function showTab(tabName) {
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-            document.querySelectorAll('.nav-button').forEach(button => button.classList.remove('active'));
+            // Hide all tab contents
+            const tabContents = document.getElementsByClassName('tab-content');
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove('active');
+            }
+            
+            // Remove active class from all buttons
+            const tabButtons = document.getElementsByClassName('nav-btn');
+            for (let i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove('active');
+            }
+            
+            // Show the specific tab content
             document.getElementById(tabName).classList.add('active');
             
-            // Find and activate the corresponding navigation button
-            const activeButton = Array.from(document.querySelectorAll('.nav-button')).find(button => {
-                return button.textContent.toLowerCase().includes(tabName.replace(/-/g, ' '));
-            });
-            
+            // Set the corresponding button as active
+            const activeButton = document.querySelector(`.nav-btn[onclick="showTab('${tabName}')"]`);
             if (activeButton) {
                 activeButton.classList.add('active');
             }
-            
-            currentTab = tabName;
-            document.querySelector('.main-content').scrollTo(0, 0);
         }
-
-        function previousTab() {
-            const currentIndex = tabs.indexOf(currentTab);
-            if (currentIndex > 0) {
-                showTab(tabs[currentIndex - 1]);
+        
+        // Add copy functionality to all copy buttons
+        document.querySelectorAll('.btn').forEach(button => {
+            if (button.textContent.includes('Copy')) {
+                button.addEventListener('click', function() {
+                    const tabContent = this.closest('.tab-content');
+                    const textareas = tabContent.querySelectorAll('textarea');
+                    let allText = '';
+                    
+                    textareas.forEach((textarea, index) => {
+                        const question = textarea.closest('.question-card').querySelector('.question-title').textContent;
+                        const answer = textarea.value || 'No response provided';
+                        allText += `Question ${index + 1}: ${question}\nAnswer: ${answer}\n\n`;
+                    });
+                    
+                    navigator.clipboard.writeText(allText).then(() => {
+                        alert('Responses copied to clipboard!');
+                    }).catch(err => {
+                        console.error('Could not copy text: ', err);
+                    });
+                });
             }
-        }
-
-        function nextTab() {
-            const currentIndex = tabs.indexOf(currentTab);
-            if (currentIndex < tabs.length - 1) {
-                showTab(tabs[currentIndex + 1]);
-            }
-        }
-
-        function copyAllResponses(tabId) {
-            const textareas = document.querySelectorAll(`#${tabId} .textarea`);
-            let allResponses = "";
-            textareas.forEach((textarea, index) => {
-                const question = textarea.closest('.question-card').querySelector('.question-title').textContent;
-                const response = textarea.value || "(No response)";
-                allResponses += `Question ${index + 1}: ${question}\n`;
-                allResponses += `Response: ${response}\n`;
-                allResponses += "----------------------------------------\n";
-            });
-            navigator.clipboard.writeText(allResponses).then(() => {
-                alert("All responses copied to clipboard!");
-            }).catch(err => {
-                console.error('Copy failed:', err);
-                alert("Copy failed. Please try again.");
-            });
-        }
-
-        // Initialize active tab
-        document.addEventListener('DOMContentLoaded', () => {
-            showTab('session-outcomes');
         });
     </script>
-    <!-- Hit Counter Script -->
-    <script type="text/javascript" src="https://counter5.optistats.ovh/private/counter.js?c=e12aua7unus6hsqy4cycg9hewu4wm1wy&down=async" async></script>
-    <noscript><a href="https://www.freecounterstat.com" title="website counter"><img src="https://counter5.optistats.ovh/private/freecounterstat.php?c=e12aua7unus6hsqy4cycg9hewu4wm1wy" border="0" title="website counter" alt="website counter"></a></noscript>
 </body>
 </html>

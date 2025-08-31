@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Assignment 2: Reading Reflection - EMS</title>
+    <title>Assignment 2: Youth Unemployment Analysis - EMS</title>
     <style>
         * {
             margin: 0;
@@ -496,40 +496,40 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         
-        /* Theme Selection Styles */
-        .theme-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1rem;
-            margin: 1rem 0;
-        }
-        .theme-card {
-            background: #f8f9fa;
-            border: 1px solid #e9ecef;
+        /* Statistics Panel */
+        .stats-panel {
+            background: #e6eff9;
             border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .stats-title {
+            font-size: 1.3rem;
+            color: #00205B;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        .stat-item {
+            background: white;
             padding: 1rem;
-            cursor: pointer;
-            transition: all 0.2s;
+            border-radius: 0.5rem;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
-        .theme-card:hover {
-            background: #e9ecef;
-            transform: translateY(-2px);
-        }
-        .theme-card.selected {
-            background: #00205B;
-            color: white;
-            border-color: #FF8200;
-        }
-        .theme-card h4 {
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #FF8200;
             margin-bottom: 0.5rem;
-            color: inherit;
         }
-        .theme-card ul {
-            padding-left: 1.5rem;
+        .stat-label {
+            color: #6b7280;
             font-size: 0.9rem;
-        }
-        .theme-card li {
-            margin-bottom: 0.25rem;
         }
         
         /* Responsive Adjustments */
@@ -577,7 +577,7 @@
             .tab-content {
                 padding: 1rem;
             }
-            .theme-grid {
+            .stats-grid {
                 grid-template-columns: 1fr;
             }
             .counter-wrapper {
@@ -637,7 +637,7 @@
     </div>
 
     <!-- Page Title to replace the removed header -->
-    <h1 class="page-title">Assignment 2: Reading Reflection - EMS</h1>
+    <h1 class="page-title">Assignment 2: Youth Unemployment Analysis - EMS</h1>
 
     <div class="container">
         <!-- Left Navigation Column -->
@@ -652,16 +652,12 @@
                     <span>📖</span>
                     <span>Instructions</span>
                 </button>
-                <button class="nav-button" onclick="showTab('theme-selection')">
+                <button class="nav-button" onclick="showTab('youth-unemployment')">
                     <span>🎯</span>
-                    <span>Theme Selection</span>
-                </button>
-                <button class="nav-button" onclick="showTab('article-analysis')">
-                    <span>🔍</span>
-                    <span>Article Analysis</span>
+                    <span>Youth Unemployment</span>
                 </button>
                 <button class="nav-button" onclick="showTab('critical-reading')">
-                    <span>🧠</span>
+                    <span>🔍</span>
                     <span>Critical Reading</span>
                 </button>
                 <button class="nav-button" onclick="showTab('session-reflection')">
@@ -682,15 +678,37 @@
                 <div class="card">
                     <div class="card-header">
                         <h2 class="card-title">Session Outcomes</h2>
-                        <p class="card-description">Key learning goals for engaging with the articles and reflection tasks</p>
+                        <p class="card-description">Key learning goals for engaging with youth unemployment analysis</p>
                     </div>
                     <div class="card-content space-y-6">
                         <ul class="space-y-2 text-gray-800 text-lg">
-                            <li>1️⃣ Identify and analyse the authors' argumentative strategies in your selected articles</li>
-                            <li>2️⃣ Compare and contrast how different authors approach your chosen theme</li>
-                            <li>3️⃣ Synthesize arguments from multiple sources to form a coherent critical response</li>
-                            <li>4️⃣ Connect academic arguments to real-world economic and management issues in South Africa</li>
+                            <li>1️⃣ Analyze the structural factors contributing to youth unemployment in South Africa</li>
+                            <li>2️⃣ Evaluate different economic theories and their explanations for youth unemployment</li>
+                            <li>3️⃣ Connect youth unemployment issues to EMS disciplines and potential solutions</li>
+                            <li>4️⃣ Develop critical perspectives on policy interventions and their effectiveness</li>
                         </ul>
+                        
+                        <div class="stats-panel">
+                            <h3 class="stats-title">Youth Unemployment in South Africa</h3>
+                            <div class="stats-grid">
+                                <div class="stat-item">
+                                    <div class="stat-value">63.9%</div>
+                                    <div class="stat-label">Youth Unemployment Rate (15-24 years)</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value">42.1%</div>
+                                    <div class="stat-label">Overall Unemployment Rate</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value">3.9M</div>
+                                    <div class="stat-label">Unemployed Youth</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value">10.2M</div>
+                                    <div class="stat-label">Youth Not in Education or Employment</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -700,7 +718,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h2 class="card-title">Assignment Instructions</h2>
-                        <p class="card-description">Complete overview of Assignment 2: Reading Reflection requirements</p>
+                        <p class="card-description">Complete overview of Assignment 2: Youth Unemployment Analysis</p>
                     </div>
                     <div class="card-content space-y-6">
                         <div class="grid grid-cols-2">
@@ -709,11 +727,11 @@
                                 <ul class="space-y-2">
                                     <li style="display: flex; align-items: flex-start; gap: 0.5rem;">
                                         <span class="checkmark">✓</span>
-                                        <span>850-1000 word critical reflection essay</span>
+                                        <span>850-1000 word critical analysis</span>
                                     </li>
                                     <li style="display: flex; align-items: flex-start; gap: 0.5rem;">
                                         <span class="checkmark">✓</span>
-                                        <span>Based on two academic articles from your chosen theme</span>
+                                        <span>Focus on youth unemployment in South Africa</span>
                                     </li>
                                     <li style="display: flex; align-items: flex-start; gap: 0.5rem;">
                                         <span class="checkmark">✓</span>
@@ -734,15 +752,15 @@
                                 <div class="space-y-2">
                                     <div class="bg-blue-50 p-3 rounded-lg">
                                         <h4 class="font-medium text-blue-700">Harvard Referencing</h4>
-                                        <p style="font-size: 0.875rem; color: #00205B;">Each article must be cited at least twice. All data/statistics must be cited.</p>
+                                        <p style="font-size: 0.875rem; color: #00205B;">All sources must be properly cited using Harvard style</p>
                                     </div>
                                     <div class="bg-amber-50 p-3 rounded-lg">
-                                        <h4 class="font-medium text-blue-700">Critical Engagement</h4>
-                                        <p style="font-size: 0.875rem; color: #00205B;">Not just summary - analyze and evaluate arguments</p>
+                                        <h4 class="font-medium text-blue-700">Critical Analysis</h4>
+                                        <p style="font-size: 0.875rem; color: #00205B;">Not just description - analyze and evaluate arguments</p>
                                     </div>
                                     <div class="bg-green-50 p-3 rounded-lg">
-                                        <h4 class="font-medium text-blue-700">South African Context</h4>
-                                        <p style="font-size: 0.875rem; color: #00205B;">Connect arguments to local economic and management issues</p>
+                                        <h4 class="font-medium text-blue-700">EMS Connections</h4>
+                                        <p style="font-size: 0.875rem; color: #00205B;">Connect youth unemployment to EMS disciplines</p>
                                     </div>
                                 </div>
                             </div>
@@ -752,19 +770,19 @@
                             <div class="grid grid-cols-2">
                                 <div>
                                     <h5 class="font-medium text-blue-700">Introduction</h5>
-                                    <p style="font-size: 0.875rem; color: #00205B;">Introduce theme, selected articles, and thesis statement</p>
+                                    <p style="font-size: 0.875rem; color: #00205B;">Context and thesis statement on youth unemployment</p>
                                 </div>
                                 <div>
-                                    <h5 class="font-medium text-blue-700">Summary & Analysis</h5>
-                                    <p style="font-size: 0.875rem; color: #00205B;">Summarize core arguments of each article with critical analysis</p>
+                                    <h5 class="font-medium text-blue-700">Analysis</h5>
+                                    <p style="font-size: 0.875rem; color: #00205B;">Examine causes, impacts, and potential solutions</p>
                                 </div>
                                 <div>
-                                    <h5 class="font-medium text-blue-700">Synthesis</h5>
-                                    <p style="font-size: 0.875rem; color: #00205B;">Compare, contrast, and evaluate the articles' arguments</p>
+                                    <h5 class="font-medium text-blue-700">EMS Perspectives</h5>
+                                    <p style="font-size: 0.875rem; color: #00205B;">Economic, management, and entrepreneurial angles</p>
                                 </div>
                                 <div>
                                     <h5 class="font-medium text-blue-700">Conclusion</h5>
-                                    <p style="font-size: 0.875rem; color: #00205B;">Summarize analysis and provide concluding thoughts</p>
+                                    <p style="font-size: 0.875rem; color: #00205B;">Synthesize findings and recommendations</p>
                                 </div>
                             </div>
                         </div>
@@ -772,168 +790,49 @@
                 </div>
             </div>
 
-            <!-- Theme Selection Tab -->
-            <div id="theme-selection" class="tab-content">
+            <!-- Youth Unemployment Tab -->
+            <div id="youth-unemployment" class="tab-content">
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="card-title">Theme Selection</h2>
-                        <p class="card-description">Choose ONE theme for your reading reflection assignment</p>
+                        <h2 class="card-title">Youth Unemployment Analysis</h2>
+                        <p class="card-description">Critical analysis of youth unemployment in South Africa</p>
                     </div>
                     <div class="card-content space-y-6">
                         <div class="bg-gray-50 p-4 rounded-lg">
-                            <h3 class="font-semibold text-gray-800" style="margin-bottom: 0.5rem;">Important Note</h3>
+                            <h3 class="font-semibold text-gray-800" style="margin-bottom: 0.5rem;">Context</h3>
                             <p class="text-gray-600">
-                                You must select ONE theme from the options below. Each theme folder on clickUP contains several articles. 
-                                You will need to choose TWO articles from your selected theme's folder to use for your assignment.
+                                South Africa has one of the highest youth unemployment rates globally, with complex structural, educational, 
+                                and economic factors contributing to this challenge. Analyze this issue using the questions below.
                             </p>
                         </div>
                         
-                        <h3 class="text-lg font-semibold text-gray-800">Available Themes</h3>
-                        <p>Click on a theme to select it for your assignment:</p>
-                        
-                        <div class="theme-grid">
-                            <div class="theme-card" onclick="selectTheme(this, 1)">
-                                <h4>Theme 1: Unemployment</h4>
-                                <ul>
-                                    <li>Youth unemployment</li>
-                                    <li>Labour-market scarring</li>
-                                    <li>Skills mismatch</li>
-                                    <li>Economic policies affecting job creation</li>
-                                </ul>
-                            </div>
-                            
-                            <div class="theme-card" onclick="selectTheme(this, 2)">
-                                <h4>Theme 2: Corruption</h4>
-                                <ul>
-                                    <li>Systemic corruption</li>
-                                    <li>Impact on economic development</li>
-                                    <li>Ethics in leadership and reporting</li>
-                                    <li>Case studies (e.g., state capture)</li>
-                                </ul>
-                            </div>
-                            
-                            <div class="theme-card" onclick="selectTheme(this, 3)">
-                                <h4>Theme 3: Entrepreneurship</h4>
-                                <ul>
-                                    <li>Entrepreneurship as solution to unemployment</li>
-                                    <li>Barriers to entry</li>
-                                    <li>Access to capital</li>
-                                    <li>Financial literacy</li>
-                                </ul>
-                            </div>
-                            
-                            <div class="theme-card" onclick="selectTheme(this, 4)">
-                                <h4>Theme 4: National Dialogue & Governance</h4>
-                                <ul>
-                                    <li>Service delivery</li>
-                                    <li>Public policy effectiveness</li>
-                                    <li>Constitutionalism</li>
-                                    <li>Governance and accountability</li>
-                                </ul>
-                            </div>
-                            
-                            <div class="theme-card" onclick="selectTheme(this, 5)">
-                                <h4>Theme 5: Education and Skills Mismatch</h4>
-                                <ul>
-                                    <li>Alignment between education and labour market</li>
-                                    <li>Financial literacy</li>
-                                    <li>Failures of the education system</li>
-                                    <li>Solutions for skills development</li>
-                                </ul>
-                            </div>
-                            
-                            <div class="theme-card" onclick="selectTheme(this, 6)">
-                                <h4>Theme 6: Economic Policies & Issues</h4>
-                                <ul>
-                                    <li>B-BBEE</li>
-                                    <li>National Health Insurance (NHI)</li>
-                                    <li>Inflation and repo rates</li>
-                                    <li>Trade tariffs and wealth inequality</li>
-                                </ul>
-                            </div>
-                            
-                            <div class="theme-card" onclick="selectTheme(this, 7)">
-                                <h4>Theme 7: Social Justice & Inequality</h4>
-                                <ul>
-                                    <li>Crime and poverty</li>
-                                    <li>Access to opportunities</li>
-                                    <li>Human rights</li>
-                                    <li>Social cohesion</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div id="selected-theme-display" class="bg-blue-50 p-4 rounded-lg" style="display: none;">
-                            <h4 class="font-semibold text-blue-700">Your Selected Theme</h4>
-                            <p id="selected-theme-text">You haven't selected a theme yet.</p>
-                            <div class="article-link-box">
-                                <p>Once you've selected your theme, access the articles in the "Reading Reflection Articles" folder on clickUP.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Article Analysis Tab -->
-            <div id="article-analysis" class="tab-content">
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">Article Analysis</h2>
-                        <p class="card-description">Analyze the argumentation strategies in your two selected articles</p>
-                    </div>
-                    <div class="card-content space-y-6">
-                        <div class="bg-gray-50 p-4 rounded-lg">
-                            <h3 class="font-semibold text-gray-800" style="margin-bottom: 0.5rem;">Analysis Guidance</h3>
-                            <p class="text-gray-600">
-                                Use these questions to analyze the argumentation strategies in your two selected articles. 
-                                Consider how each author constructs their argument, what evidence they use, and how they attempt to persuade their audience.
-                            </p>
-                        </div>
-                        
-                        <div id="aa-questions">
+                        <div id="yu-questions">
                             <h3 class="text-lg font-semibold text-gray-800">Analytical Questions</h3>
                             <div class="question-card">
-                                <h4 class="question-title">1. What is the main argument or thesis of each article? How clearly is it stated, and where in the article does it appear?</h4>
+                                <h4 class="question-title">1. What are the primary structural factors contributing to youth unemployment in South Africa, and how do they interact with each other?</h4>
                                 <textarea class="textarea" placeholder="Write your analysis here..."></textarea>
                             </div>
                             <div class="question-card">
-                                <h4 class="question-title">2. What types of evidence does each author use to support their claims? (e.g., statistical data, case studies, theoretical frameworks, historical examples)</h4>
+                                <h4 class="question-title">2. How does the skills mismatch between education outcomes and labor market demands affect youth employment prospects?</h4>
                                 <textarea class="textarea" placeholder="Write your analysis here..."></textarea>
                             </div>
                             <div class="question-card">
-                                <h4 class="question-title">3. How do the authors establish their credibility or authority on the subject? Consider their use of specialized terminology, references to other research, or professional background.</h4>
+                                <h4 class="question-title">3. Compare the effectiveness of government initiatives like the Youth Employment Service (YES) with private sector interventions in addressing youth unemployment.</h4>
                                 <textarea class="textarea" placeholder="Write your analysis here..."></textarea>
                             </div>
                             <div class="question-card">
-                                <h4 class="question-title">4. What underlying assumptions or values shape each author's argument? Are these assumptions explicitly stated or implied?</h4>
+                                <h4 class="question-title">4. What role does entrepreneurship play in solving youth unemployment, and what barriers do young entrepreneurs face in South Africa?</h4>
                                 <textarea class="textarea" placeholder="Write your analysis here..."></textarea>
                             </div>
                             <div class="question-card">
-                                <h4 class="question-title">5. How do the authors address counterarguments or alternative perspectives? Do they acknowledge and refute opposing views, or ignore them?</h4>
-                                <textarea class="textarea" placeholder="Write your analysis here..."></textarea>
-                            </div>
-                            <div class="question-card">
-                                <h4 class="question-title">6. What persuasive techniques or rhetorical strategies does each author employ? (e.g., emotional appeals, logical reasoning, ethical arguments)</h4>
-                                <textarea class="textarea" placeholder="Write your analysis here..."></textarea>
-                            </div>
-                            <div class="question-card">
-                                <h4 class="question-title">7. How is each article structured to maximize persuasiveness? Consider the organization of ideas, use of headings, and placement of key arguments.</h4>
+                                <h4 class="question-title">5. How do economic policies around minimum wage, labor regulations, and B-BBEE impact youth employment opportunities?</h4>
                                 <textarea class="textarea" placeholder="Write your analysis here..."></textarea>
                             </div>
                         </div>
-                        <button class="button button-primary copy-button" onclick="copyAllResponses('article-analysis')">
+                        <button class="button button-primary copy-button" onclick="copyAllResponses('youth-unemployment')">
                             <span>📋</span>
                             <span>Copy All Responses</span>
                         </button>
-                        <div class="tips-container">
-                            <h3>Key Tips for Comparing Articles</h3>
-                            <ul class="tips-list">
-                                <li>Look for both similarities and differences in how the authors approach the same theme</li>
-                                <li>Consider how the disciplinary background of each author might influence their approach</li>
-                                <li>Evaluate which argument you find more persuasive and why</li>
-                                <li>Note how each article contributes to a broader understanding of the theme</li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -942,39 +841,44 @@
             <div id="critical-reading" class="tab-content">
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="card-title">Critical Reading Reflection</h2>
-                        <p class="card-description">Reflect on the articles in relation to your academic discipline and the South African context</p>
+                        <h2 class="card-title">Critical Reading: EMS Connections</h2>
+                        <p class="card-description">Connect youth unemployment issues to EMS disciplines</p>
                     </div>
                     <div class="card-content space-y-6">
                         <div class="bg-gray-50 p-4 rounded-lg">
                             <h3 class="font-semibold text-gray-800" style="margin-bottom: 0.5rem;">Context</h3>
                             <p class="text-gray-600">
-                                This section invites you to reflect on how the arguments in your selected articles connect to your academic discipline, 
-                                your perspective as a student of Economics and Management Sciences, and the broader South African context.
+                                This section helps you connect youth unemployment issues to various EMS disciplines, including Economics, 
+                                Management, Entrepreneurship, and Accounting.
                             </p>
                         </div>
                         
                         <div id="cr-questions">
-                            <h3 class="text-lg font-semibold text-gray-800">Reflection Questions</h3>
+                            <h3 class="text-lg font-semibold text-gray-800">EMS Discipline Connections</h3>
+                            
                             <div class="question-card">
-                                <h4 class="question-title">1. How do the arguments in these articles connect to or challenge what you've learned in your EMS courses? What new perspectives do they offer?</h4>
-                                <textarea class="textarea" placeholder="Write your reflection here..."></textarea>
+                                <h4 class="question-title">Economics Perspective: How do Keynesian and neoclassical economic theories offer different explanations and solutions for youth unemployment?</h4>
+                                <textarea class="textarea" placeholder="Write your analysis here..."></textarea>
                             </div>
+                            
                             <div class="question-card">
-                                <h4 class="question-title">2. How might the arguments in these articles inform potential solutions to economic or management challenges in South Africa? What practical applications can you identify?</h4>
-                                <textarea class="textarea" placeholder="Write your reflection here..."></textarea>
+                                <h4 class="question-title">Management Perspective: What management strategies can organizations implement to enhance youth recruitment, training, and retention?</h4>
+                                <textarea class="textarea" placeholder="Write your analysis here..."></textarea>
                             </div>
+                            
                             <div class="question-card">
-                                <h4 class="question-title">3. Reflect on your position as a student of Economics and Management Sciences. How does your academic background shape how you interpret these articles?</h4>
-                                <textarea class="textarea" placeholder="Write your reflection here..."></textarea>
+                                <h4 class="question-title">Entrepreneurship Perspective: How can entrepreneurial education in schools and universities better prepare youth for creating their own employment opportunities?</h4>
+                                <textarea class="textarea" placeholder="Write your analysis here..."></textarea>
                             </div>
+                            
                             <div class="question-card">
-                                <h4 class="question-title">4. Which of the two articles did you find more persuasive, and why? Consider the strength of evidence, clarity of argument, and relevance to the South African context.</h4>
-                                <textarea class="textarea" placeholder="Write your reflection here..."></textarea>
+                                <h4 class="question-title">Accounting Perspective: How can better financial literacy and access to capital improve youth entrepreneurship and employment outcomes?</h4>
+                                <textarea class="textarea" placeholder="Write your analysis here..."></textarea>
                             </div>
+                            
                             <div class="question-card">
-                                <h4 class="question-title">5. What questions or areas for further investigation did these articles raise for you? How might you explore these questions in your future studies?</h4>
-                                <textarea class="textarea" placeholder="Write your reflection here..."></textarea>
+                                <h4 class="question-title">Integrated EMS Approach: Propose a comprehensive strategy that combines insights from multiple EMS disciplines to address youth unemployment.</h4>
+                                <textarea class="textarea" placeholder="Write your analysis here..."></textarea>
                             </div>
                         </div>
                         <button class="button button-primary copy-button" onclick="copyAllResponses('critical-reading')">
@@ -990,23 +894,23 @@
                 <div class="card">
                     <div class="card-header">
                         <h2 class="card-title">Session Reflection</h2>
-                        <p class="card-description">Synthesize your analysis and reflection into key insights</p>
+                        <p class="card-description">Synthesize your analysis and reflection on youth unemployment</p>
                     </div>
                     <div class="card-content space-y-6">
                         <div class="question-card">
-                            <h4 class="question-title">1. What are the most significant similarities and differences between how your two selected articles approach your chosen theme?</h4>
+                            <h4 class="question-title">1. How has your understanding of youth unemployment in South Africa evolved through this analysis?</h4>
                             <textarea class="textarea" placeholder="Write your response here..."></textarea>
                         </div>
                         <div class="question-card">
-                            <h4 class="question-title">2. How has engaging with these articles deepened your understanding of your chosen theme within the South African context?</h4>
+                            <h4 class="question-title">2. Which EMS discipline provides the most valuable insights for addressing youth unemployment, and why?</h4>
                             <textarea class="textarea" placeholder="Write your response here..."></textarea>
                         </div>
                         <div class="question-card">
-                            <h4 class="question-title">3. What critical perspective will you bring to your reading reflection essay? What will be your main argument or thesis?</h4>
+                            <h4 class="question-title">3. What personal connections do you see between youth unemployment and your own academic and career aspirations?</h4>
                             <textarea class="textarea" placeholder="Write your response here..."></textarea>
                         </div>
                         <div class="question-card">
-                            <h4 class="question-title">4. How will you synthesize the arguments from both articles to create a coherent critical response rather than just summarizing each article separately?</h4>
+                            <h4 class="question-title">4. Based on your analysis, what policy recommendations would you propose to address youth unemployment in South Africa?</h4>
                             <textarea class="textarea" placeholder="Write your response here..."></textarea>
                         </div>
                         <button class="button button-primary copy-button" onclick="copyAllResponses('session-reflection')">
@@ -1026,28 +930,28 @@
                     </div>
                     <div class="card-content space-y-6">
                         <h3 class="text-lg font-semibold text-gray-800">Generated Image</h3>
-                        <p class="text-gray-600">This image represents economic development and challenges in South Africa, connecting to the EMS themes.</p>
-                        <img src="https://images.unsplash.com/photo-1563013541-2d0df2c00e71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="GenAI Generated Image on Economic Development" class="genai-image">
-                        <p class="image-caption">Figure 1: AI-generated image representing economic development challenges (Example, 2025).</p>
+                        <p class="text-gray-600">This image represents youth unemployment challenges and opportunities in South Africa.</p>
+                        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80" alt="GenAI Generated Image on Youth Unemployment" class="genai-image">
+                        <p class="image-caption">Figure 1: AI-generated image representing youth unemployment challenges (Example, 2025).</p>
                         <div class="language-section">
                             <h4>L1: isiZulu</h4>
-                            <p>Ukuthuthukiswa komnotho kudinga amabhizinisi amasha, izinhlelo zemfundo, kanye nokubambisana phakathi kohulumeni nabantu.</p>
+                            <p>Intsha engasebenzi ingumgogodla wezwe. Kudinga amathuba emisebenzi, izifundo zobuchwepheshe, kanye nokusekelwa kwezimali ukuze kwakhiwe ikusasa elihle.</p>
                         </div>
                         <div class="language-section">
                             <h4>L2: English</h4>
-                            <p>Economic development requires new businesses, educational programs, and collaboration between government and people.</p>
+                            <p>Unemployed youth are the nation's backbone. They need job opportunities, skills training, and financial support to build a better future.</p>
                         </div>
                         <div class="citation-box">
                             <h4>Reference Citation (Harvard Style)</h4>
                             <p>When citing an AI-generated image in your reference list, use the following format:</p>
                             <div class="citation-example">
-                                AI Generator (2025) <i>AI-generated image representing economic development challenges</i> [Digital image]. Created using [AI Tool Name]. 
+                                AI Generator (2025) <i>AI-generated image representing youth unemployment challenges</i> [Digital image]. Created using [AI Tool Name]. 
                             </div>
                             <p style="margin-top: 1rem;"><strong>Note:</strong> Replace [AI Tool Name] with the specific AI tool you used to generate your image.</p>
                         </div>
                         <div class="bg-blue-50 p-4 rounded-lg">
                             <h4 class="font-semibold text-blue-700">Assignment Requirement</h4>
-                            <p>This GenAI image and translanguaging component is part of Assignment 2 requirements. The image should capture the theme of your reading reflection or your personal response to the articles, accompanied by text in at least two languages.</p>
+                            <p>This GenAI image and translanguaging component is part of Assignment 2 requirements. The image should capture the theme of youth unemployment or your personal response to the issue, accompanied by text in at least two languages.</p>
                         </div>
                     </div>
                 </div>
@@ -1078,8 +982,7 @@
 
     <script>
         let currentTab = 'session-outcomes';
-        const tabs = ['session-outcomes', 'instructions', 'theme-selection', 'article-analysis', 'critical-reading', 'session-reflection', 'genai-integration'];
-        let selectedTheme = null;
+        const tabs = ['session-outcomes', 'instructions', 'youth-unemployment', 'critical-reading', 'session-reflection', 'genai-integration'];
 
         function showTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
@@ -1111,24 +1014,6 @@
             if (currentIndex < tabs.length - 1) {
                 showTab(tabs[currentIndex + 1]);
             }
-        }
-
-        function selectTheme(card, themeNumber) {
-            // Remove selected class from all theme cards
-            document.querySelectorAll('.theme-card').forEach(c => c.classList.remove('selected'));
-            
-            // Add selected class to clicked card
-            card.classList.add('selected');
-            
-            // Update selected theme
-            selectedTheme = themeNumber;
-            
-            // Update the selected theme display
-            const themeDisplay = document.getElementById('selected-theme-display');
-            const themeText = document.getElementById('selected-theme-text');
-            
-            themeText.textContent = `You have selected Theme ${themeNumber}: ${card.querySelector('h4').textContent.split(': ')[1]}`;
-            themeDisplay.style.display = 'block';
         }
 
         function copyAllResponses(tabId) {

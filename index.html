@@ -33,12 +33,28 @@
             margin-bottom: 30px;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
             text-align: center;
+            position: relative; /* Added for positioning the tab */
+        }
+        
+        /* NEW: Session tab styling */
+        .session-tab {
+            position: absolute;
+            top: 0;
+            left: 20px;
+            background: #FF8200;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 0 0 8px 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
         
         h1 {
             font-size: 2.8rem;
             margin-bottom: 12px;
             color: #FF8200;
+            margin-top: 10px; /* Added to accommodate the session tab */
         }
         
         .subtitle {
@@ -358,6 +374,14 @@
                 text-align: center;
                 gap: 15px;
             }
+            
+            /* Mobile adjustment for session tab */
+            .session-tab {
+                left: 50%;
+                transform: translateX(-50%);
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
         }
         
         @media (max-width: 480px) {
@@ -378,12 +402,21 @@
                 flex-direction: column;
                 gap: 15px;
             }
+            
+            /* Further mobile adjustment for session tab */
+            .session-tab {
+                width: 90%;
+                text-align: center;
+                font-size: 0.75rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
+            <!-- NEW: Session tab added here -->
+            <div class="session-tab">ALL 124_Session 1_Week 6</div>
             <h1>Youth Unemployment in South Africa</h1>
             <p class="subtitle">Academic Analysis for EMS Students - Critical Reading & Argumentation Strategies</p>
         </header>

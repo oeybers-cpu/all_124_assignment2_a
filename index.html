@@ -99,6 +99,16 @@
         .nav-btn.active:after {
             width: 80%;
         }
+        /* Special style for the new readings button */
+        .nav-btn.readings {
+            color: #28a745; /* Green color to stand out */
+        }
+        .nav-btn.readings:hover {
+            color: #218838; /* Darker green on hover */
+        }
+        .nav-btn.readings:after {
+            background-color: #28a745; /* Green underline when active */
+        }
         main {
             background: white;
             padding: 30px;
@@ -289,6 +299,8 @@
             <button class="nav-btn" onclick="showTab('part2')">Part 2: Analysis</button>
             <button class="nav-btn" onclick="showTab('part3')">Part 3: Evaluation</button>
             <button class="nav-btn" onclick="showTab('part4')">Part 4: Synthesis</button>
+            <!-- New button for Required Assignment 2 Readings -->
+            <button class="nav-btn readings" onclick="window.open('https://oeybers-cpu.github.io/all_124_readings/', '_blank')">Required Assignment 2 Readings</button>
         </nav>
 
         <main>
@@ -528,4 +540,3 @@
     </script>
 </body>
 </html>
-

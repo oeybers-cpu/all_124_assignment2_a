@@ -11,6 +11,9 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+        html {
+            scroll-behavior: smooth;
+        }
         body {
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
             color: #333;
@@ -226,6 +229,35 @@
         .ref-example p {
             margin: 0;
         }
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            background-color: white;
+            border-top: 1px solid #dee2e6;
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.05);
+        }
+        #scrollTopBtn {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 30px;
+            z-index: 99;
+            border: none;
+            outline: none;
+            background-color: #00205B;
+            color: white;
+            cursor: pointer;
+            padding: 10px 15px;
+            border-radius: 50%;
+            font-size: 20px;
+            transition: background-color 0.3s, opacity 0.3s, transform 0.3s;
+        }
+        #scrollTopBtn:hover {
+            background-color: #00338D;
+            transform: translateY(-3px);
+        }
         @media (max-width: 768px) {
             .content-section {
                 flex-direction: column;
@@ -283,8 +315,16 @@
                         <li><strong>Theme 3: Entrepreneurship</strong><br>Topics: Entrepreneurship as a solution to unemployment, barriers to entry, access to capital, financial literacy, innovation in the South African context.</li>
                         <li><strong>Theme 4: National Dialogue & Governance</strong><br>Topics: Service delivery, political accountability, social cohesion.</li>
                     </ul>
+                    
+                    <h3>3. Required Readings</h3>
+                    <p>Please select two articles from the list provided in the following link, based on your chosen theme.</p>
+                    <p>
+                        <a href="Critical Reading Reflection - Academic Themes" class="article-link" target="_blank" rel="noopener noreferrer">
+                            Critical Reading Reflection - Academic Themes
+                        </a>
+                    </p>
 
-                    <h3>3. Formatting and Submission Requirements</h3>
+                    <h3>4. Formatting and Submission Requirements</h3>
                      <ul>
                         <li><strong>File Format:</strong> Submit a single document in .docx or .pdf format.</li>
                         <li><strong>Font:</strong> Use a clear, readable font like Arial or Times New Roman. Font size must not exceed 12 points.</li>
@@ -295,7 +335,7 @@
                         <li>A complete <strong>Reference List</strong> must be included at the end of your document.</li>
                     </ul>
 
-                    <h3>4. Referencing Example (Harvard)</h3>
+                    <h3>5. Referencing Example (Harvard)</h3>
                     <div class="ref-example">
                         <p><strong>In-text citation:</strong><br>
                         A common argument is that entrepreneurship is crucial for alleviating poverty (Kuratko, 2016; Urban, 2020).</p>
@@ -410,7 +450,14 @@
                 </div>
             </div>
         </main>
+        <footer>
+             <div id="sfcezr7zy97mrnxca93tnkkrarb6stsj9kw"></div>
+            <script type="text/javascript" src="https://counter5.optistats.ovh/private/counter.js?c=ezr7zy97mrnxca93tnkkrarb6stsj9kw&down=async" async></script>
+            <noscript><a href="https://www.freecounterstat.com" title="free counter"><img src="https://counter5.optistats.ovh/private/freecounterstat.php?c=ezr7zy97mrnxca93tnkkrarb6stsj9kw" border="0" title="free counter" alt="free counter"></a></noscript>
+        </footer>
     </div>
+    
+    <button onclick="scrollToTop()" id="scrollTopBtn" title="Go to top">^</button>
 
     <script>
         function downloadResponse(part) {
@@ -463,6 +510,22 @@
                 activeButton.classList.add('active');
             }
         }
+
+        // Scroll to top functionality
+        const scrollTopBtn = document.getElementById("scrollTopBtn");
+
+        window.onscroll = function() {
+            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                scrollTopBtn.style.display = "block";
+            } else {
+                scrollTopBtn.style.display = "none";
+            }
+        };
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     </script>
 </body>
 </html>
+

@@ -109,6 +109,16 @@
         .nav-btn.readings:after {
             background-color: #28a745; /* Green underline when active */
         }
+        /* Style for the demo button */
+        .nav-btn.demo {
+            color: #9c27b0; /* Purple color to stand out */
+        }
+        .nav-btn.demo:hover {
+            color: #7b1fa2; /* Darker purple on hover */
+        }
+        .nav-btn.demo:after {
+            background-color: #9c27b0; /* Purple underline when active */
+        }
         main {
             background: white;
             padding: 30px;
@@ -268,6 +278,33 @@
             background-color: #00338D;
             transform: translateY(-3px);
         }
+        .demo-content {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .demo-content p {
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+        .demo-btn {
+            background: linear-gradient(135deg, #9c27b0 0%, #7b1fa2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(156, 39, 176, 0.3);
+        }
+        .demo-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(156, 39, 176, 0.4);
+        }
+        .demo-btn:active {
+            transform: translateY(0);
+        }
         @media (max-width: 768px) {
             .content-section {
                 flex-direction: column;
@@ -301,6 +338,8 @@
             <button class="nav-btn" onclick="showTab('part4')">Part 4: Synthesis</button>
             <!-- New button for Required Assignment 2 Readings -->
             <button class="nav-btn readings" onclick="window.open('https://oeybers-cpu.github.io/all_124_readings/', '_blank')">Required Assignment 2 Readings</button>
+            <!-- New button for Demo -->
+            <button class="nav-btn demo" onclick="showTab('demo')">Demo</button>
         </nav>
 
         <main>
@@ -367,7 +406,7 @@
                     <p>Please read the following article before proceeding with the reflective exercises. Click the link to open the article in a new tab.</p>
                     <p>
                         <a href="https://www.cnbc.com/2023/08/24/south-africa-is-chinas-springboard-into-africa-says-president-ramaphosa.html" class="article-link" target="_blank" rel="noopener noreferrer">
-                            South Africa is China’s ‘springboard’ into Africa, says President Ramaphosa
+                            South Africa is China's 'springboard' into Africa, says President Ramaphosa
                         </a>
                     </p>
                      <p>Once you have finished reading, proceed to "Part 1: Initial Thoughts" to begin your analysis.</p>
@@ -459,6 +498,14 @@
                             <button onclick="downloadResponse('part4')">Download .txt</button>
                         </div>
                     </div>
+                </div>
+            </div>
+            <!-- Demo Tab -->
+            <div id="demo" class="tab-content">
+                <h2>Demo</h2>
+                <div class="demo-content">
+                    <p>Click the button below to access the demo site for this assignment. The demo provides additional examples and resources to help you complete your critical reading reflection.</p>
+                    <button class="demo-btn" onclick="window.open('https://youthunem-c2bmoz.manus.space/', '_blank')">Access Demo</button>
                 </div>
             </div>
         </main>

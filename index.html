@@ -384,6 +384,31 @@
             color: #00205B;
             line-height: 1.6;
         }
+        /* Download buttons styles */
+        .download-btn {
+            background: #10b981;
+        }
+        .download-btn:hover {
+            background: #0d9668;
+        }
+        .download-all-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+        }
+        .download-all-btn {
+            background: #8b5cf6;
+            padding: 18px 25px;
+            border-radius: 50px;
+            box-shadow: 0 6px 15px rgba(139, 92, 246, 0.3);
+            font-size: 1rem;
+        }
+        .download-all-btn:hover {
+            background: #7c3aed;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.4);
+        }
         @media (max-width: 1024px) {
             .content-wrapper {
                 flex-direction: column;
@@ -433,6 +458,14 @@
                 text-align: center;
                 gap: 15px;
             }
+            .download-all-container {
+                bottom: 20px;
+                right: 20px;
+            }
+            .download-all-btn {
+                padding: 15px 20px;
+                font-size: 0.9rem;
+            }
         }
         @media (max-width: 480px) {
             .nav-links {
@@ -453,6 +486,14 @@
                 width: 90%;
                 text-align: center;
                 font-size: 0.75rem;
+            }
+            .download-all-container {
+                bottom: 15px;
+                right: 15px;
+            }
+            .download-all-btn {
+                padding: 12px 18px;
+                font-size: 0.85rem;
             }
         }
     </style>
@@ -692,10 +733,13 @@
                             </div>
                             <div class="question-card">
                                 <div class="question-title">Which theme are you considering for your reflective reading analysis? Why does this theme interest you?</div>
-                                <textarea placeholder="Write your response here..."></textarea>
+                                <textarea id="theme-selection-response" placeholder="Write your response here..."></textarea>
                             </div>
-                            <button class="btn">
+                            <button class="btn" onclick="saveResponse('theme-selection')">
                                 <span>📋</span> Save Response
+                            </button>
+                            <button class="btn download-btn" onclick="downloadTabResponses('theme-selection')">
+                                <span>📥</span> Download Responses
                             </button>
                         </div>
                     </div>
@@ -733,10 +777,13 @@
                             </div>
                             <div class="question-card">
                                 <div class="question-title">Which two articles have you selected from your chosen theme folder? Why did you choose these particular articles?</div>
-                                <textarea placeholder="Write your response here..."></textarea>
+                                <textarea id="required-articles-response" placeholder="Write your response here..."></textarea>
                             </div>
-                            <button class="btn">
+                            <button class="btn" onclick="saveResponse('required-articles')">
                                 <span>📋</span> Save Response
+                            </button>
+                            <button class="btn download-btn" onclick="downloadTabResponses('required-articles')">
+                                <span>📥</span> Download Responses
                             </button>
                         </div>
                     </div>
@@ -776,31 +823,34 @@
 
                             <div class="question-card">
                                 <div class="question-title">1. What is the author's main argument about South Africa's youth unemployment crisis?</div>
-                                <textarea placeholder="Identify the central claim the author is making about the causes and potential solutions..."></textarea>
+                                <textarea id="article-analysis-q1" placeholder="Identify the central claim the author is making about the causes and potential solutions..."></textarea>
                             </div>
 
                             <div class="question-card">
                                 <div class="question-title">2. According to the article, what key elements of China's National System of Innovation and Incubation are highlighted as potentially beneficial for South Africa?</div>
-                                <textarea placeholder="Summarize the specific strategies or systems mentioned in the Chinese context..."></textarea>
+                                <textarea id="article-analysis-q2" placeholder="Summarize the specific strategies or systems mentioned in the Chinese context..."></textarea>
                             </div>
 
                             <div class="question-card">
                                 <div class="question-title">3. What types of evidence does the author use to support their argument? (e.g., statistics, expert references, policy examples)</div>
-                                <textarea placeholder="List and assess the credibility of the evidence presented in the article..."></textarea>
+                                <textarea id="article-analysis-q3" placeholder="List and assess the credibility of the evidence presented in the article..."></textarea>
                             </div>
 
                             <div class="question-card">
                                 <div class="question-title">4. How does the author frame the role of government, education, and entrepreneurship in addressing youth unemployment?</div>
-                                <textarea placeholder="Analyse the author's perspective on institutional responsibilities..."></textarea>
+                                <textarea id="article-analysis-q4" placeholder="Analyse the author's perspective on institutional responsibilities..."></textarea>
                             </div>
 
                             <div class="question-card">
                                 <div class="question-title">5. What assumptions does the author make about the transferability of China's model to South Africa?</div>
-                                <textarea placeholder="Consider cultural, economic, and political factors that may affect this transfer..."></textarea>
+                                <textarea id="article-analysis-q5" placeholder="Consider cultural, economic, and political factors that may affect this transfer..."></textarea>
                             </div>
 
-                            <button class="btn">
+                            <button class="btn" onclick="saveResponse('article-analysis')">
                                 <span>📋</span> Save Responses
+                            </button>
+                            <button class="btn download-btn" onclick="downloadTabResponses('article-analysis')">
+                                <span>📥</span> Download Responses
                             </button>
                         </div>
                     </div>
@@ -856,31 +906,34 @@
                             </div>
                             <div class="question-card">
                                 <div class="question-title">1. How does each author establish their credibility (ethos) to speak on this topic?</div>
-                                <textarea placeholder="Consider qualifications, use of experts, or demonstration of knowledge..."></textarea>
+                                <textarea id="critical-reading-q1" placeholder="Consider qualifications, use of experts, or demonstration of knowledge..."></textarea>
                             </div>
                             <div class="question-card">
                                 <div class="question-title">2. What emotional appeals (pathos) does each author use, and how effective are they?</div>
-                                <textarea placeholder="Look for language that evokes emotion or personal connection..."></textarea>
+                                <textarea id="critical-reading-q2" placeholder="Look for language that evokes emotion or personal connection..."></textarea>
                             </div>
                             <div class="question-card">
                                 <div class="question-title">3. Analyse the logical structure (logos) of each argument. How does each author build their case?</div>
-                                <textarea placeholder="Examine the sequence of ideas and use of reasoning..."></textarea>
+                                <textarea id="critical-reading-q3" placeholder="Examine the sequence of ideas and use of reasoning..."></textarea>
                             </div>
                             <div class="question-card">
                                 <div class="question-title">4. What specific evidence does each author present, and how credible is it?</div>
-                                <textarea placeholder="Evaluate the sources, data, and examples used..."></textarea>
+                                <textarea id="critical-reading-q4" placeholder="Evaluate the sources, data, and examples used..."></textarea>
                             </div>
                             <div class="question-card">
                                 <div class="question-title">5. How does each author address counterarguments or alternative perspectives?</div>
-                                <textarea placeholder="Look for acknowledgement of opposing views..."></textarea>
+                                <textarea id="critical-reading-q5" placeholder="Look for acknowledgement of opposing views..."></textarea>
                             </div>
                             <!-- Additional question about youth unemployment -->
                             <div class="question-card">
                                 <div class="question-title">6. Based on the youth unemployment article, what innovative approaches could South Africa adopt to address its youth unemployment crisis?</div>
-                                <textarea placeholder="Consider lessons from China's National System of Innovation and Incubation..."></textarea>
+                                <textarea id="critical-reading-q6" placeholder="Consider lessons from China's National System of Innovation and Incubation..."></textarea>
                             </div>
-                            <button class="btn">
+                            <button class="btn" onclick="saveResponse('critical-reading')">
                                 <span>📋</span> Save Responses
+                            </button>
+                            <button class="btn download-btn" onclick="downloadTabResponses('critical-reading')">
+                                <span>📥</span> Download Responses
                             </button>
                         </div>
                     </div>
@@ -903,27 +956,30 @@
                         <div class="card-content">
                             <div class="question-card">
                                 <div class="question-title">1. How has your understanding of your chosen theme evolved through this analysis?</div>
-                                <textarea placeholder="Write your response here..."></textarea>
+                                <textarea id="session-reflection-q1" placeholder="Write your response here..."></textarea>
                             </div>
                             <div class="question-card">
                                 <div class="question-title">2. Which EMS discipline provides the most valuable insights for addressing issues related to your theme, and why?</div>
-                                <textarea placeholder="Write your response here..."></textarea>
+                                <textarea id="session-reflection-q2" placeholder="Write your response here..."></textarea>
                             </div>
                             <div class="question-card">
                                 <div class="question-title">3. What connections do you see between your theme and your own academic and career aspirations?</div>
-                                <textarea placeholder="Write your response here..."></textarea>
+                                <textarea id="session-reflection-q3" placeholder="Write your response here..."></textarea>
                             </div>
                             <div class="question-card">
                                 <div class="question-title">4. Based on your analysis, what recommendations would you propose to address issues related to your theme in South Africa?</div>
-                                <textarea placeholder="Write your response here..."></textarea>
+                                <textarea id="session-reflection-q4" placeholder="Write your response here..."></textarea>
                             </div>
                             <!-- Additional reflection question about youth unemployment -->
                             <div class="question-card">
                                 <div class="question-title">5. How might the lessons from China's approach to youth innovation and incubation be adapted to address South Africa's specific challenges with youth unemployment?</div>
-                                <textarea placeholder="Consider cultural, economic, and political differences..."></textarea>
+                                <textarea id="session-reflection-q5" placeholder="Consider cultural, economic, and political differences..."></textarea>
                             </div>
-                            <button class="btn">
+                            <button class="btn" onclick="saveResponse('session-reflection')">
                                 <span>📋</span> Save Responses
+                            </button>
+                            <button class="btn download-btn" onclick="downloadTabResponses('session-reflection')">
+                                <span>📥</span> Download Responses
                             </button>
                         </div>
                     </div>
@@ -995,7 +1051,120 @@
             <a href='https://www.free-counters.org/' class="counter-link">Visitor Counter by Free-Counters.org</a>
         </footer>
     </div>
+
+    <!-- Download All Button (Fixed Position) -->
+    <div class="download-all-container">
+        <button class="btn download-all-btn" onclick="downloadAllResponses()">
+            <span>📦</span> Download All Responses
+        </button>
+    </div>
+
     <script>
+        // Store responses in localStorage
+        function saveResponse(tabId) {
+            const tabContent = document.getElementById(tabId);
+            const textareas = tabContent.querySelectorAll('textarea');
+            let responses = {};
+            
+            textareas.forEach((textarea, index) => {
+                const question = textarea.previousElementSibling.textContent;
+                responses[`q${index+1}`] = {
+                    question: question,
+                    response: textarea.value
+                };
+            });
+            
+            localStorage.setItem(tabId, JSON.stringify(responses));
+            alert('Responses saved!');
+        }
+
+        // Load saved responses when page loads
+        function loadSavedResponses() {
+            const tabsWithQuestions = [
+                'theme-selection', 
+                'required-articles', 
+                'article-analysis', 
+                'critical-reading', 
+                'session-reflection'
+            ];
+            
+            tabsWithQuestions.forEach(tabId => {
+                const savedResponses = localStorage.getItem(tabId);
+                if (savedResponses) {
+                    const responses = JSON.parse(savedResponses);
+                    Object.keys(responses).forEach(key => {
+                        const textarea = document.getElementById(`${tabId}-${key}`);
+                        if (textarea) {
+                            textarea.value = responses[key].response;
+                        }
+                    });
+                }
+            });
+        }
+
+        // Download responses from a specific tab
+        function downloadTabResponses(tabId) {
+            const tabContent = document.getElementById(tabId);
+            const tabTitle = tabContent.querySelector('.card-title').textContent;
+            const textareas = tabContent.querySelectorAll('textarea');
+            
+            let content = `Reflective Reading - ${tabTitle}\n`;
+            content += `Downloaded: ${new Date().toLocaleString()}\n\n`;
+            
+            textareas.forEach((textarea, index) => {
+                const question = textarea.previousElementSibling.textContent;
+                content += `Question ${index + 1}: ${question}\n`;
+                content += `Response: ${textarea.value}\n\n`;
+            });
+            
+            downloadAsTxt(content, `reflective-reading-${tabId}.txt`);
+        }
+
+        // Download all responses from all tabs
+        function downloadAllResponses() {
+            const tabsWithQuestions = [
+                'theme-selection', 
+                'required-articles', 
+                'article-analysis', 
+                'critical-reading', 
+                'session-reflection'
+            ];
+            
+            let content = `Reflective Reading - All Responses\n`;
+            content += `Downloaded: ${new Date().toLocaleString()}\n\n`;
+            
+            tabsWithQuestions.forEach(tabId => {
+                const tabContent = document.getElementById(tabId);
+                const tabTitle = tabContent.querySelector('.card-title').textContent;
+                const textareas = tabContent.querySelectorAll('textarea');
+                
+                content += `=== ${tabTitle} ===\n\n`;
+                
+                textareas.forEach((textarea, index) => {
+                    const question = textarea.previousElementSibling.textContent;
+                    content += `Question ${index + 1}: ${question}\n`;
+                    content += `Response: ${textarea.value}\n\n`;
+                });
+                
+                content += '\n';
+            });
+            
+            downloadAsTxt(content, 'reflective-reading-all-responses.txt');
+        }
+
+        // Helper function to download text as .txt file
+        function downloadAsTxt(content, filename) {
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
         function showTab(tabName) {
             // Hide all tab contents
             const tabContents = document.getElementsByClassName('tab-content');
@@ -1015,18 +1184,11 @@
                 activeButton.classList.add('active');
             }
         }
-        // Add save functionality to all save buttons
-        document.querySelectorAll('.btn').forEach(button => {
-            if (button.textContent.includes('Save')) {
-                button.addEventListener('click', function() {
-                    const tabContent = this.closest('.tab-content');
-                    const textareas = tabContent.querySelectorAll('textarea');
-                    // In a real application, this would save to a database
-                    // For this demo, we'll just show an alert
-                    alert('Responses saved! (In a real application, this would be saved to a database)');
-                });
-            }
-        });
+
+        // Load saved responses when page loads
+        window.onload = function() {
+            loadSavedResponses();
+        };
     </script>
 </body>
 </html>

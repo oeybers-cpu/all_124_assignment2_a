@@ -193,10 +193,11 @@
             color: #00338D;
             text-decoration: none;
             border-bottom: 2px solid transparent;
-            transition: border-bottom 0.3s ease;
+            transition: all 0.3s ease;
         }
         .article-link:hover {
             border-bottom: 2px solid #00338D;
+            text-shadow: 0 0 8px rgba(0, 51, 141, 0.7);
         }
         .details-grid {
             display: grid;
@@ -245,13 +246,13 @@
 <body>
     <div class="container">
         <header>
-            <div class="session-tab">Session 1_Week 2</div>
+            <div class="session-tab">ALL 124_Session 1_Week 6</div>
             <h1>Reflective Reading</h1>
             <p>An Academic Analysis Tool for EMS</p>
         </header>
         <nav>
-            <button class="nav-btn" onclick="showTab('reading')">Reading Material</button>
             <button class="nav-btn active" onclick="showTab('assignment2')">Assignment 2 Instructions</button>
+            <button class="nav-btn" onclick="showTab('reading')">Reading Material</button>
             <button class="nav-btn" onclick="showTab('part1')">Part 1: Initial Thoughts</button>
             <button class="nav-btn" onclick="showTab('part2')">Part 2: Analysis</button>
             <button class="nav-btn" onclick="showTab('part3')">Part 3: Evaluation</button>
@@ -259,19 +260,6 @@
         </nav>
 
         <main>
-             <!-- Reading Material -->
-             <div id="reading" class="tab-content">
-                <h2>Reading Material</h2>
-                <div class="text-content">
-                    <p>Please read the following article before proceeding with the reflective exercises. Click the link to open the article in a new tab.</p>
-                    <p>
-                        <a href="https://www.cnbc.com/2023/08/24/south-africa-is-chinas-springboard-into-africa-says-president-ramaphosa.html" class="article-link" target="_blank" rel="noopener noreferrer">
-                            South Africa is China’s ‘springboard’ into Africa, says President Ramaphosa
-                        </a>
-                    </p>
-                     <p>Once you have finished reading, proceed to "Part 1: Initial Thoughts" to begin your analysis.</p>
-                </div>
-            </div>
              <!-- Assignment 2 -->
              <div id="assignment2" class="tab-content active">
                 <h2>Assignment 2: Critical Reading Reflection</h2>
@@ -318,6 +306,19 @@
                     </div>
 
                     <p><strong>Plagiarism alert:</strong> This is an individual assignment. Your work will be submitted through Turnitin on clickUP. Ensure you paraphrase ideas into your own words and cite your sources correctly. Direct quotations must be in quotation marks and cited with a page number.</p>
+                </div>
+            </div>
+             <!-- Reading Material -->
+             <div id="reading" class="tab-content">
+                <h2>Reading Material</h2>
+                <div class="text-content">
+                    <p>Please read the following article before proceeding with the reflective exercises. Click the link to open the article in a new tab.</p>
+                    <p>
+                        <a href="https://www.cnbc.com/2023/08/24/south-africa-is-chinas-springboard-into-africa-says-president-ramaphosa.html" class="article-link" target="_blank" rel="noopener noreferrer">
+                            South Africa is China’s ‘springboard’ into Africa, says President Ramaphosa
+                        </a>
+                    </p>
+                     <p>Once you have finished reading, proceed to "Part 1: Initial Thoughts" to begin your analysis.</p>
                 </div>
             </div>
             <!-- Part 1: Initial Thoughts -->
